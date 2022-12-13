@@ -22,6 +22,7 @@
     moreutils
     colmena
     vim_configurable
+    autojump
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
