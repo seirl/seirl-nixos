@@ -1,3 +1,4 @@
 {
   dalaran = ./dalaran;
+  redridge = ./redridge;
 }
