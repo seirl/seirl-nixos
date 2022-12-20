@@ -4,7 +4,7 @@
   imports = [
     ./hardware.nix
     ../../roles/graphical.nix
-    ../../roles/nvidia_legacy_470.nix
+    ../../roles/nvidia.nix
     ../../roles/gaming.nix
     ../../roles/ecryptfs.nix
   ];
