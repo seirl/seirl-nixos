@@ -28,6 +28,8 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   security.sudo.enable = true;
+  programs.zsh.enable = true;
+  programs.autojump.enable = true;
 
   # SUID wrappers
   programs.mtr.enable = true;
