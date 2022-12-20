@@ -13,8 +13,11 @@
     google-chrome
     firefox
     mpv
+    feh
+    evince
     rofimoji
     escrotum
+    imgurbash2
   ];
 
   services.xserver.enable = true;
