@@ -8,6 +8,7 @@
     pciutils
     usbutils
     file
+    tree
     python3
     ruby
     git
