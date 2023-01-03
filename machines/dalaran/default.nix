@@ -3,10 +3,11 @@
 {
   imports = [
     ./hardware.nix
+    ../../roles/ecryptfs.nix
+    ../../roles/gaming.nix
     ../../roles/graphical.nix
     ../../roles/nvidia.nix
-    ../../roles/gaming.nix
-    ../../roles/ecryptfs.nix
+    ../../roles/samba_server.nix
   ];
 
   environment.systemPackages = with pkgs; [
