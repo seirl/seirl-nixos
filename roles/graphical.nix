@@ -18,6 +18,7 @@
     rofimoji
     escrotum
     imgurbash2
+    transmission-qt
   ];
 
   services.xserver.enable = true;
