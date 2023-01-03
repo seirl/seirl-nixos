@@ -29,6 +29,9 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   security.sudo.enable = true;
+
+  programs.less.enable = true;
+  programs.vim.defaultEditor = true;
   programs.zsh.enable = true;
   programs.autojump.enable = true;
 
