@@ -15,6 +15,7 @@
     wget
     htop
     mosh
+    unzip
     unrar
     p7zip
     ffmpeg
