@@ -19,6 +19,9 @@
     escrotum
     imgurbash2
     transmission-qt
+
+    aegisub
+    audacity
   ];
 
   services.xserver.enable = true;
