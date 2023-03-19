@@ -46,19 +46,4 @@
 
   # Enable NetworkManager applet
   programs.nm-applet.enable = true;
-
-  # https://github.com/transmission/transmission/issues/4716
-  nixpkgs.overlays = [
-    (self: super: {
-      transmission-qt = super.transmission-qt.overrideAttrs (attrs: {
-        patches = (attrs.patches or [ ]) ++ [
-          (self.fetchpatch {
-            url =
-              "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
-            hash = "sha256-mhqDYhxEofX5v8dd89Z1x6VL8JAcbzjXuN3f14EjMzE=";
-          })
-        ];
-      });
-    })
-  ];
 }
