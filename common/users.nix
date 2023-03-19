@@ -8,4 +8,17 @@
     packages = with pkgs; [
     ];
   };
+
+  security.sudo.extraRules = [
+    {
+      users = [ "seirl" ];
+      commands = [
+        {
+          command = "ALL" ;
+          options= [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
 }
