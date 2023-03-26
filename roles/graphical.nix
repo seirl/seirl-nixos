@@ -47,4 +47,7 @@
 
   # Enable NetworkManager applet
   programs.nm-applet.enable = true;
+
+  # GVFS to mount MTP devices
+  services.gvfs.enable = true;
 }
