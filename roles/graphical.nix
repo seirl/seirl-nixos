@@ -22,6 +22,7 @@
 
     aegisub
     audacity
+    gimp-with-plugins
   ];
 
   services.xserver.enable = true;
