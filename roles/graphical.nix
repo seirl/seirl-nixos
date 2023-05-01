@@ -1,53 +1,60 @@
 { config, lib, pkgs, ... }:
 
-{
-  nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    i3
-    pcmanfm
-    rxvt-unicode
-    pavucontrol
-    texlive.combined.scheme-full
-    xorg.xkill
+let
+  cfg = config.my.roles.graphical;
+in {
+  options = {
+    my.roles.graphical.enable = lib.mkEnableOption "Graphical computer";
+  };
 
-    google-chrome
-    firefox
-    mpv
-    feh
-    evince
-    rofimoji
-    escrotum
-    imgurbash2
-    transmission-qt
+  config = {
+    environment.systemPackages = with pkgs; [
+      i3
+      pcmanfm
+      rxvt-unicode
+      pavucontrol
+      texlive.combined.scheme-full
+      xorg.xkill
 
-    aegisub
-    audacity
-    gimp-with-plugins
-  ];
+      google-chrome
+      firefox
+      mpv
+      feh
+      evince
+      rofimoji
+      escrotum
+      imgurbash2
+      transmission-qt
 
-  services.xserver.enable = true;
+      aegisub
+      audacity
+      gimp-with-plugins
+    ];
 
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.windowManager.i3.enable = true;
+    services.xserver.enable = true;
 
-  hardware.opengl.enable = true;
+    services.xserver.displayManager.sddm.enable = true;
+    services.xserver.windowManager.i3.enable = true;
 
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbVariant = "altgr-intl";
-  services.xserver.xkbOptions = "compose:menu,caps:swapescape";
+    hardware.opengl.enable = true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+    # Configure keymap in X11
+    services.xserver.layout = "us";
+    services.xserver.xkbVariant = "altgr-intl";
+    services.xserver.xkbOptions = "compose:menu,caps:swapescape";
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+    # Enable CUPS to print documents.
+    services.printing.enable = true;
 
-  # Enable NetworkManager applet
-  programs.nm-applet.enable = true;
+    # Enable sound.
+    sound.enable = true;
+    hardware.pulseaudio.enable = true;
+    hardware.pulseaudio.support32Bit = true;
 
-  # GVFS to mount MTP devices
-  services.gvfs.enable = true;
+    # Enable NetworkManager applet
+    programs.nm-applet.enable = true;
+
+    # GVFS to mount MTP devices
+    services.gvfs.enable = true;
+  };
 }

@@ -1,24 +1,21 @@
 { name, config, pkgs, ... }:
 
-{
+let
+  my = import ../..;
+in {
   imports = [
+    my.modules
     ./hardware.nix
-    ../../roles/graphical.nix
-    ../../roles/nvidia.nix
-    ../../roles/gaming.nix
-    ../../roles/ecryptfs.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-  ];
+  my.roles.ecryptfs.enable = true;
+  my.roles.gaming.enable = true;
+  my.roles.graphical.enable = true;
+  my.roles.nvidia.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
-
-  # boot.loader.efi.canTouchEfiVariables = true;
-  # boot.loader.systemd-boot.enable = true;
 
   networking.networkmanager.enable = true;
 

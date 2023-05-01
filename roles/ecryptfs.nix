@@ -1,17 +1,24 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-{
-  environment.systemPackages = with pkgs; [
-    ecryptfs
-    ecryptfs-helper
-    keyutils
-  ];
+let
+  cfg = config.my.roles.ecryptfs;
+in {
+  options = {
+    my.roles.ecryptfs.enable = lib.mkEnableOption "Ecryptfs mount and tools";
+  };
 
-  boot.kernelModules = [ "ecryptfs" ];
-  boot.supportedFilesystems = [ "ecryptfs" ];
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      ecryptfs
+      ecryptfs-helper
+      keyutils
+    ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "python-2.7.18.6"
-  ];
+    boot.kernelModules = [ "ecryptfs" ];
+    boot.supportedFilesystems = [ "ecryptfs" ];
 
+    nixpkgs.config.permittedInsecurePackages = [
+      "python-2.7.18.6"
+    ];
+  };
 }
