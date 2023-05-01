@@ -45,4 +45,7 @@
 
   # Services
   services.openssh.enable = true;
+
+  # Nix config
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
