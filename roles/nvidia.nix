@@ -1,8 +1,9 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.my.roles.nvidia;
-in {
+in
+{
   options = {
     my.roles.nvidia.enable = lib.mkEnableOption "Machine with Nvidia GPU";
   };

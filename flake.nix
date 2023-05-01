@@ -10,26 +10,26 @@
     let
       machines = import ./machines;
     in
-      {
-        colmena = {
-          meta = {
-            nixpkgs = import nixpkgs {
-              system = "x86_64-linux";
-            };
+    {
+      colmena = {
+        meta = {
+          nixpkgs = import nixpkgs {
+            system = "x86_64-linux";
           };
-          defaults = { pkgs, ... }: {
-            imports = [
-              home-manager.nixosModules.home-manager
-              ./common
-            ];
-            # deployment.replaceUnknownProfiles = true;
-            deployment.allowLocalDeployment = true;
+        };
+        defaults = { pkgs, ... }: {
+          imports = [
+            home-manager.nixosModules.home-manager
+            ./common
+          ];
+          # deployment.replaceUnknownProfiles = true;
+          deployment.allowLocalDeployment = true;
 
-            home-manager.useUserPackages = true;
-            home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.useGlobalPkgs = true;
 
-            system.stateVersion = "22.11";
-          };
-        } // machines;
-  };
+          system.stateVersion = "22.11";
+        };
+      } // machines;
+    };
 }

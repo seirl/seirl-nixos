@@ -2,7 +2,8 @@
 
 let
   cfg = config.my.roles.gaming;
-in {
+in
+{
   options = {
     my.roles.gaming.enable = lib.mkEnableOption "Gaming computer";
   };

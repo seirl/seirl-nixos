@@ -2,7 +2,8 @@
 
 let
   cfg = config.my.roles.graphical;
-in {
+in
+{
   options = {
     my.roles.graphical.enable = lib.mkEnableOption "Graphical computer";
   };

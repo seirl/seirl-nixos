@@ -2,7 +2,8 @@
 
 let
   my = import ../..;
-in {
+in
+{
   imports = [
     my.modules
     ./hardware.nix

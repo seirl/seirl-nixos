@@ -2,7 +2,8 @@
 
 let
   cfg = config.my.roles.ecryptfs;
-in {
+in
+{
   options = {
     my.roles.ecryptfs.enable = lib.mkEnableOption "Ecryptfs mount and tools";
   };

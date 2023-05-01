@@ -2,7 +2,8 @@
 
 let
   cfg = config.my.roles.samba_server;
-in {
+in
+{
   options = {
     my.roles.samba_server.enable = lib.mkEnableOption "Samba server";
   };
@@ -14,10 +15,14 @@ in {
 
     services.samba-wsdd.enable = true;
     networking.firewall.allowedTCPPorts = [
-      445 139 5357
+      445
+      139
+      5357
     ];
     networking.firewall.allowedUDPPorts = [
-      137 138 3702
+      137
+      138
+      3702
     ];
     services.samba = {
       enable = true;
