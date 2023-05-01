@@ -19,6 +19,7 @@ in {
       google-chrome
       firefox
       mpv
+      vlc
       feh
       evince
       rofimoji
