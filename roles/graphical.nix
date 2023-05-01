@@ -26,6 +26,7 @@ in {
       escrotum
       imgurbash2
       transmission-qt
+      virt-manager
 
       aegisub
       audacity
