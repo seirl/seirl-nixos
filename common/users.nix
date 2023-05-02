@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  my = import ./..;
+in
 {
   users.users.seirl = {
     isNormalUser = true;
@@ -21,4 +24,9 @@
     }
   ];
 
+  home-manager.users.seirl = {
+    imports = [
+      my.home
+    ];
+  };
 }
