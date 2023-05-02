@@ -1,52 +1,55 @@
 { config, ... }:
 
 {
-  config.xresources.properties = {
-    "urxvt*termName" = "rxvt-256color";
+  config.programs.urxvt = {
+    enable = true;
+    scroll.bar.enable = false;
+    iso14755 = false;
 
-    "urxvt*background " = "[75]#000000";
-    "urxvt*foreground " = "white";
+    fonts = [
+      "xft:DejaVu Sans Mono:pixelsize=11:antialias=true"
+      "xft:Symbola:pixelsize=11:antialias=false"
+    ];
 
-    "*.font" = "xft:DejaVu Sans Mono:pixelsize=11:antialias=true,xft:Symbola:pixelsize=11:antialias=false";
+    keybindings = {
+      "M-u" = "matcher:select";
+      "C-equal" = "perl:font-size:increase";
+      "Shift-Control-C" = "perl:clipboard:copy";
+      "Control-Insert" = "perl:clipboard:copy";
+    };
 
-    "urxvt*depth" = "32";
-    "urxvt*tint " = "black";
-    "urxvt*scrollBar " = "false";
+    extraConfig = {
+      termName = "rxvt-256color";
+      urgentOnBell = true;
 
-    "urxvt*color0  " = "#2E3436";
-    "urxvt*color1  " = "#CC0000";
-    "urxvt*color10 " = "#8AE234";
-    "urxvt*color11 " = "#FCE94F";
-    "urxvt*color12 " = "#729FCF";
-    "urxvt*color13 " = "#AD7FA8";
-    "urxvt*color14 " = "#34E2E2";
-    "urxvt*color15 " = "#EEEEEC";
-    "urxvt*color2  " = "#4E9A06";
-    "urxvt*color3  " = "#C4A000";
-    "urxvt*color4  " = "#3465A4";
-    "urxvt*color5  " = "#75507B";
-    "urxvt*color6  " = "#06989A";
-    "urxvt*color7  " = "#D3D7CF";
-    "urxvt*color8  " = "#555753";
-    "urxvt*color9  " = "#EF2929";
+      perl-lib = "~/.local/share/urxvt/ext";
+      perl-ext-common = "default,matcher";
+      perl-ext = "font-size";
+      url-launcher = "xdg-open";
+      "matcher.button" = "1";
 
-    "URxvt.urgentOnBell" = "true";
-
-    "urxvt.perl-ext-common" = "default,matcher,xkr-clipboard";
-    "urxvt.perl-ext" = "font-size";
-
-    # Font size
-    "URxvt.keysym.C-equal" = "perl:font-size:increase";
-
-    # Matcher
-    "URxvt.keysym.M-u" = "matcher:select";
-    "urxvt.urlLauncher" = "xdg-open";
-    "urxvt.url-launcher" = "xdg-open";
-    "urxvt.matcher.button" = "1";
-
-    # Clipboard
-    "URxvt.iso14755" = "false";
-    "URxvt.keysym.Shift-Control-C" = "perl:clipboard:copy";
-    "URxvt.keysym.Control-Insert" = "perl:clipboard:copy";
+      background = "[75]#000000";
+      foreground = "white";
+      depth = "32";
+      tint = "black";
+      color0 = "#2E3436";
+      color1 = "#CC0000";
+      color2 = "#4E9A06";
+      color3 = "#C4A000";
+      color4 = "#3465A4";
+      color5 = "#75507B";
+      color6 = "#06989A";
+      color7 = "#D3D7CF";
+      color8 = "#555753";
+      color9 = "#EF2929";
+      color10 = "#8AE234";
+      color11 = "#FCE94F";
+      color12 = "#729FCF";
+      color13 = "#AD7FA8";
+      color14 = "#34E2E2";
+      color15 = "#EEEEEC";
+    };
   };
+
+  config.home.file.".local/share/urxvt/ext/font-size".source = ./source/urxvt/ext/font-size;
 }

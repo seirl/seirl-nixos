@@ -14,5 +14,5 @@
     ./urxvt.nix
   ];
 
-  home.file.".XCompose".source = ./xcompose.conf;
+  home.file.".XCompose".source = ./source/xcompose.conf;
 }
