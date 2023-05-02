@@ -45,6 +45,11 @@
 
   # Services
   services.openssh.enable = true;
+  services.locate = {
+    enable = true;
+    locate = pkgs.mlocate;
+    interval = "hourly";
+  };
 
   # Nix config
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

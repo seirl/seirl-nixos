@@ -3,7 +3,7 @@
 {
   users.users.seirl = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "mlocate" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
     ];
