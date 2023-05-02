@@ -8,7 +8,8 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "mlocate" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILiua8eEg+nU0XSbYPTgnOMftzvpbN+u7v5jDabeO/0E"
     ];
   };
 

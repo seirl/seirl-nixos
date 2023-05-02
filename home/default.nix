@@ -9,6 +9,7 @@
   imports = [
     ./git.nix
     ./mercurial.nix
+    ./ssh.nix
     ./tmux.nix
     ./urxvt.nix
   ];
