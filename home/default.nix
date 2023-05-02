@@ -1,15 +1,17 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./urxvt.nix
-    ./mercurial.nix
-    ./git.nix
-  ];
-
   home.username = "seirl";
   home.homeDirectory = "/home/seirl";
+  home.stateVersion = "22.11";
   programs.home-manager.enable = true;
 
-  home.stateVersion = "22.11";
+  imports = [
+    ./git.nix
+    ./mercurial.nix
+    ./tmux.nix
+    ./urxvt.nix
+  ];
+
+  home.file.".XCompose".source = ./xcompose.conf;
 }
