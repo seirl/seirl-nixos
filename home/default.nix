@@ -7,6 +7,7 @@
   programs.home-manager.enable = true;
 
   imports = [
+    ./i3.nix
     ./git.nix
     ./mercurial.nix
     ./ssh.nix

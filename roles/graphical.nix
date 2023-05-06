@@ -16,6 +16,7 @@ in
       pavucontrol
       texlive.combined.scheme-full
       xorg.xkill
+      xorg.xev
 
       google-chrome
       firefox
