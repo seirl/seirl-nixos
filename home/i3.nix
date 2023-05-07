@@ -31,6 +31,13 @@ in
         "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
         "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
 
+        # File manager
+        "${mod}+a" = "exec ``${pkgs.pcmanfm}/bin/pcmanfm \"`${pkgs.xcwd}/bin/xcwd`\"``";
+
+        # Lock & suspend
+        "${mod}+o" = "exec --no-startup-id ${pkgs.i3lock}/bin/i3lock -c 000000";
+        "${mod}+Shift+o" = "exec --no-startup-id sudo systemctl suspend & ${pkgs.i3lock}/bin/i3lock -c 000000";
+
         # Emojis
         "${mod}+semicolon" = "exec --no-startup-id ${pkgs.rofimoji}/bin/rofimoji";
 
@@ -39,9 +46,6 @@ in
 
         # xcwd terminal
         "${mod}+Shift+Return" = "exec ``i3-sensible-terminal -cd \"`${pkgs.xcwd}/bin/xcwd`\"``";
-
-        # File manager
-        "${mod}+a" = "exec ``${pkgs.pcmanfm}/bin/pcmanfm \"`${pkgs.xcwd}/bin/xcwd`\"``";
 
         # Remap to vim-like (commented out for now, might bring back later)
         # Focus
