@@ -23,5 +23,20 @@ in
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
     };
+
+    # Drawful 2 fix.
+    #
+    # The game is statically linked with a version of openssl which, for some
+    # reason, cannot use the bundled /etc/ssl/certs/ca-certificates.crt file,
+    # but instead looks up the unbundled and hashed version of the same
+    # certificate. NixOS does not provide this hashed certificate by default,
+    # and there is currently no package that provide them.
+    # We work around this by simply copying the one certificate required by
+    # Drawful 2 from the cacert.unbundled package to the hashed path that the
+    # game looks up.
+    environment.etc."ssl/certs/f081611a.0" = {
+      source = "${pkgs.cacert.unbundled}/etc/ssl/certs/Go_Daddy_Class_2_CA:0.crt";
+      mode = "0644";
+    };
   };
 }
