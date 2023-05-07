@@ -7,6 +7,7 @@
   environment.systemPackages = with pkgs; [
     pciutils
     usbutils
+    binutils
     file
     tree
     python3
