@@ -8,7 +8,7 @@ in
     my.roles.samba_server.enable = lib.mkEnableOption "Samba server";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       cifs-utils
     ];

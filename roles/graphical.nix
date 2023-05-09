@@ -8,7 +8,7 @@ in
     my.roles.graphical.enable = lib.mkEnableOption "Graphical computer";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       i3
       pcmanfm
