@@ -11,7 +11,9 @@
     file
     tree
     python3
-    ruby
+    moreutils
+    dig
+    reptyr
     git
     wget
     htop
@@ -22,10 +24,8 @@
     ffmpeg
     gnumake
     jq
-    moreutils
     colmena
     vim_configurable
-    autojump
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
