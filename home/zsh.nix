@@ -5,16 +5,8 @@
     programs.zsh = {
       enable = true;
       enableSyntaxHighlighting = true;
-      initExtra = ''
+      initExtraFirst = ''
         source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
-
-        # Bind Alt+m to copy the previous word.
-        autoload -Uz copy-earlier-word
-        zle -N copy-earlier-word
-        bindkey "^[m" copy-earlier-word
-
-        # Disable stupid ^S and ^Q freeze
-        stty -ixon
       '';
 
       shellAliases = {
@@ -24,10 +16,16 @@
         o = "zsh -c \"xdg-open $* >/dev/null 2>/dev/null &!\"";
         sizes = "zsh -c \"p=\${1:-.}; echo \$p; du -sh \$p/*(N) \$p/.*(N) | sort -h\"";
       };
-    };
 
-    home.sessionPath = [
-      "$HOME/.local/bin"
-    ];
+      initExtra = ''
+        # Bind Alt+m to copy the previous word.
+        autoload -Uz copy-earlier-word
+        zle -N copy-earlier-word
+        bindkey "^[m" copy-earlier-word
+
+        # Disable stupid ^S and ^Q freeze
+        stty -ixon
+      '';
+    };
   };
 }

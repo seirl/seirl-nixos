@@ -17,4 +17,8 @@
   ];
 
   home.file.".XCompose".source = ./source/xcompose.conf;
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 }
