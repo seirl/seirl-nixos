@@ -29,6 +29,7 @@
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "boot.shell_on_fail" ];
 
   security.sudo.enable = true;
 
