@@ -35,8 +35,11 @@
 
   programs.less.enable = true;
   programs.vim.defaultEditor = true;
+
+  # Zsh
   programs.zsh.enable = true;
   programs.autojump.enable = true;
+  environment.pathsToLink = [ "/share/zsh" ];
 
   # SUID wrappers
   programs.mtr.enable = true;

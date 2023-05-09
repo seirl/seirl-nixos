@@ -7,12 +7,13 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ./i3.nix
     ./git.nix
+    ./i3.nix
     ./mercurial.nix
     ./ssh.nix
     ./tmux.nix
     ./urxvt.nix
+    ./zsh.nix
   ];
 
   home.file.".XCompose".source = ./source/xcompose.conf;
