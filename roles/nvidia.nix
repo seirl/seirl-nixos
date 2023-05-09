@@ -9,9 +9,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.nvtop ];
     nixpkgs.config.cudaSupport = true;
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+    hardware.nvidia.modesetting.enable = true;
+    hardware.nvidia.forceFullCompositionPipeline = true;
 
     nix.settings = {
       substituters = [
