@@ -17,6 +17,7 @@ in
       texlive.combined.scheme-full
       xorg.xkill
       xorg.xev
+      gnome.adwaita-icon-theme
 
       google-chrome
       firefox
@@ -46,6 +47,9 @@ in
     services.xserver.layout = "us";
     services.xserver.xkbVariant = "altgr-intl";
     services.xserver.xkbOptions = "compose:menu,caps:swapescape";
+
+    # dconf for programs that use GSettings.
+    programs.dconf.enable = true;
 
     # Enable CUPS to print documents.
     services.printing.enable = true;
