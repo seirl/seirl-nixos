@@ -9,6 +9,12 @@ in
     ./hardware.nix
   ];
 
+  my.roles.nginx.enable = true;
+  my.roles.seedbox = {
+    enable = true;
+    vhost = "torrent.koin2.fr";
+  };
+
   # Temporary IP while there's no TLD for this one.
   deployment.targetHost = "2a01:4f9:2b:c90:d000::1";
 
