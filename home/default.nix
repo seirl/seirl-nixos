@@ -8,15 +8,16 @@
 
   imports = [
     ./git.nix
+    ./graphical.nix
     ./i3.nix
+    ./laptop.nix
     ./mercurial.nix
     ./ssh.nix
     ./tmux.nix
     ./urxvt.nix
+    ./xcompose.nix
     ./zsh.nix
   ];
-
-  home.file.".XCompose".source = ./source/xcompose.conf;
 
   home.sessionPath = [
     "$HOME/.local/bin"

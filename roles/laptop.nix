@@ -9,6 +9,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    my.home.i3.showBattery = true;
+    hardware.bluetooth.enable = true;
   };
 }

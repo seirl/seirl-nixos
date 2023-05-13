@@ -6,10 +6,13 @@ let
 in
 {
   options = {
-    my.home.i3.showBattery = lib.mkEnableOption "Show battery status";
+    my.home.i3 = {
+      enable = lib.mkEnableOption "Enable i3 config";
+      showBattery = lib.mkEnableOption "Show battery status";
+    };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     xsession.windowManager.i3 = {
       enable = true;
 

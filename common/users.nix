@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   my = import ./..;
@@ -33,5 +33,11 @@ rec {
     imports = [
       my.home
     ];
+
+    # TODO: make that automatic for all users.
+    config = {
+      my.home.graphical.enable = config.my.roles.graphical.enable;
+      my.home.laptop.enable = config.my.roles.laptop.enable;
+    };
   };
 }
