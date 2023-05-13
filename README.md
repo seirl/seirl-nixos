@@ -4,4 +4,4 @@ Apply locally:
 
 Apply on remote machines:
 
-    TODO
+    colmena apply --on hyjal
