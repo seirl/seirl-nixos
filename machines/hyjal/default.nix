@@ -14,6 +14,11 @@ in
     enable = true;
     vhost = "torrent.koin2.fr";
   };
+  my.roles.irc-client = {
+    enable = true;
+    vhost = "weechat.koin2.fr";
+    users = [ config.users.users.seirl ];
+  };
 
   # Temporary IP while there's no TLD for this one.
   deployment.targetHost = "2a01:4f9:2b:c90:d000::1";
