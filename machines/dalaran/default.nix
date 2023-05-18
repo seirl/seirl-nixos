@@ -29,10 +29,12 @@ in
     (openai-whisper.override { cudaSupport = true; })
   ];
 
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Zurich";
+
+  nixpkgs.config.cudaCapabilities = [ "5.0" "5.2" "5.3" ];
 }
