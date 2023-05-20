@@ -25,7 +25,6 @@
         defaults = { pkgs, ... }: {
           imports = [
             home-manager.nixosModules.home-manager
-            ./common
           ];
 
           # deployment.replaceUnknownProfiles = true;
