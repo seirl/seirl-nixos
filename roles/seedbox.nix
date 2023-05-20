@@ -44,7 +44,15 @@ in
       MemoryMax = "2G";
     };
 
-    users.users.nginx.extraGroups = [ "transmission" ];
+
+    sops.secrets."seedbox/transmission-htpasswd" = {
+      owner = config.users.users.nginx.name;
+    };
+    sops.secrets."seedbox/downloads-htpasswd" = {
+      owner = config.users.users.nginx.name;
+    };
+
+    users.users.nginx.extraGroups = [ "transmission" "secrets" ];
     services.nginx.virtualHosts."${cfg.vhost}" = {
       # forceSSL = true;
       # enableACME = true;
@@ -57,12 +65,14 @@ in
 
       locations."/download/" = {
         alias = "${config.services.transmission.settings.download-dir}/";
+        basicAuthFile = config.sops.secrets."seedbox/downloads-htpasswd".path;
         extraConfig = ''
           autoindex on;
         '';
       };
 
       locations."/" = {
+        basicAuthFile = config.sops.secrets."seedbox/transmission-htpasswd".path;
         proxyPass = "http://127.0.0.1:${toString transmissionRpcPort}";
       };
     };

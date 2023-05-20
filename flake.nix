@@ -1,16 +1,20 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    colmena = {
-      url = "github:zhaofengli/colmena";
-      inputs.nixpkgs.follows = "/nixpkgs";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs: {
+  outputs = { self, nixpkgs, ... } @ inputs: {
     # Colmena hive output
     colmena =
       let
@@ -24,7 +28,8 @@
         };
         defaults = { pkgs, ... }: {
           imports = [
-            home-manager.nixosModules.home-manager
+            inputs.home-manager.nixosModules.home-manager
+            inputs.sops-nix.nixosModules.sops
           ];
 
           # deployment.replaceUnknownProfiles = true;
@@ -60,5 +65,25 @@
       );
 
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+    devShell.x86_64-linux =
+      let
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+        };
+      in
+      pkgs.mkShell {
+        buildInputs = with pkgs; [
+          colmena
+          ssh-to-age
+          sops
+          (writeShellScriptBin "setup-age-private-key" ''
+            mkdir -p ~/.config/sops/age
+            echo -n "SSH passphrase: "
+            read -s SSH_TO_AGE_PASSPHRASE
+            export SSH_TO_AGE_PASSPHRASE
+            ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/keys.txt
+          '')
+        ];
+      };
   };
 }
