@@ -5,33 +5,55 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "/nixpkgs";
+    };
   };
-  outputs = { nixpkgs, home-manager, ... }:
-    let
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+  {
+    # Colmena hive output
+    colmena = let
       machines = import ./machines;
     in
     {
-      colmena = {
-        meta = {
-          nixpkgs = import nixpkgs {
-            system = "x86_64-linux";
-          };
+      meta = {
+        nixpkgs = import nixpkgs {
+          system = "x86_64-linux";
         };
-        defaults = { pkgs, ... }: {
-          imports = [
-            home-manager.nixosModules.home-manager
-            ./common
-          ];
-          # deployment.replaceUnknownProfiles = true;
-          deployment.allowLocalDeployment = true;
+      };
+      defaults = { pkgs, ... }: {
+        imports = [
+          home-manager.nixosModules.home-manager
+          ./common
+        ];
 
-          home-manager.useUserPackages = true;
-          home-manager.useGlobalPkgs = true;
+        # deployment.replaceUnknownProfiles = true;
+        deployment.allowLocalDeployment = true;
 
-          system.stateVersion = "22.11";
-        };
-      } // machines;
+        home-manager.useUserPackages = true;
+        home-manager.useGlobalPkgs = true;
 
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-    };
+        system.stateVersion = "22.11";
+      };
+    } // machines;
+
+    # Home configurations.
+    # This exposes the home configurations of each user@host pair directly by
+    # extracting them from the generated colmena hive config. This allows
+    # non-NixOS nodes to apply their home-manager config locally.
+    homeConfigurations = let
+      hive = (inputs.colmena.lib.makeHive self.colmena);
+    in with nixpkgs.lib; listToAttrs (
+      flatten (
+        mapAttrsToList (machine: machineConfig: (
+          mapAttrsToList (user: homeConfig: (
+            {name = "${user}@${machine}"; value = homeConfig;}
+          )) machineConfig.config.home-manager.users
+        )) hive.nodes
+      )
+    );
+
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+  };
 }
