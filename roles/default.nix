@@ -3,8 +3,9 @@
     ./ecryptfs.nix
     ./gaming.nix
     ./graphical.nix
-    ./laptop.nix
     ./irc-client.nix
+    ./laptop.nix
+    ./nginx.nix
     ./nvidia.nix
     ./samba_server.nix
     ./seedbox.nix
