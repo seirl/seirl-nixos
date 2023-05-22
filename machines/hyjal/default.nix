@@ -20,6 +20,10 @@ in
     vhost = "weechat.koin2.fr";
     users = [ config.users.users.seirl ];
   };
+  my.roles.rss = {
+    enable = true;
+    vhost = "rss.koin2.fr";
+  };
 
   # Temporary IP while there's no TLD for this one.
   deployment.targetHost = "2a01:4f9:2b:c90:d000::1";
