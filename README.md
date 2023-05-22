@@ -20,7 +20,7 @@ Setup:
 
 Edit secret:
 
-    sops secrets/<something>.yaml
+    sops secrets/default.yaml
 
 Get key of new machine:
 

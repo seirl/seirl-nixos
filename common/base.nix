@@ -3,7 +3,6 @@
 {
   networking.hostName = name;
 
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     pciutils
     usbutils
@@ -56,7 +55,4 @@
     interval = "hourly";
     localuser = null;
   };
-
-  # Nix config
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

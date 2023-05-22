@@ -1,5 +1,6 @@
 {
   imports = [
+    ./badeconomics.nix
     ./ecryptfs.nix
     ./gaming.nix
     ./graphical.nix
