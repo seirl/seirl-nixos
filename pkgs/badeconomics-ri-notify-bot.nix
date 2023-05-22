@@ -23,6 +23,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/reddit-economics/ri-notify-bot";
     description = "Notifies new RIs posted on /r/badeconomics";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];  # TODO: add seirl
+    maintainers = with maintainers; [ seirl ];
   };
 }
