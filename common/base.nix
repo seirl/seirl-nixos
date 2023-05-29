@@ -16,7 +16,6 @@
     git
     wget
     htop
-    mosh
     unzip
     unrar
     p7zip
@@ -34,6 +33,7 @@
 
   programs.less.enable = true;
   programs.vim.defaultEditor = true;
+  programs.mosh.enable = true;
 
   # Zsh
   programs.zsh.enable = true;
