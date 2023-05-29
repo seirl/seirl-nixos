@@ -22,7 +22,6 @@ in
   my.roles.gaming.enable = true;
   my.roles.graphical.enable = true;
   my.roles.nvidia.enable = true;
-  my.roles.nvidia.enableCuda = true;
   my.roles.samba_server.enable = true;
 
   environment.systemPackages = with pkgs; [
