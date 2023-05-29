@@ -10,7 +10,7 @@
       '';
 
       shellAliases = {
-        ip = "ip --color auto";
+        ip = "ip --color=auto";
         irc = "ssh -t seirl@koin.fr tmux attach -dt irc";
         mirc = "mosh -- seirl@koin.fr tmux attach -dt irc";
         o = "zsh -c \"xdg-open $* >/dev/null 2>/dev/null &!\"";
