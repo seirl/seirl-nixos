@@ -16,6 +16,7 @@ in
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       recommendedTlsSettings = true;
+      recommendedProxySettings = true;
     };
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];

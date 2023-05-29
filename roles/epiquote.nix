@@ -27,8 +27,10 @@ in
       epiquoteSettings = {
         epiquote = {
           prod = true;
+          use_x_forwarded_port = true;
           static_root = "${pkgs.epiquote}/static";
           database_url = "postgresql:///epiquote";
+          allowed_hosts = "${cfg.vhost}";
         };
         epita_connect = {
           enable = false;
@@ -82,6 +84,11 @@ in
       services.nginx.virtualHosts."${cfg.vhost}" = {
         # forceSSL = true;
         # enableACME = true;
+
+        locations."/static/" = {
+          alias = "${pkgs.epiquote}/static/";
+        };
+
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString epiquotePort}";
         };
