@@ -33,7 +33,7 @@ in
           configure = { availablePlugins, ... }: {
             scripts = with super.weechatScripts; [
               wee-slack
-              weechat-matrix
+              # weechat-matrix
             ];
           };
         };
