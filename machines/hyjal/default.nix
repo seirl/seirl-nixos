@@ -13,23 +13,22 @@ in
   my.roles.badeconomics.enable = true;
   my.roles.epiquote = {
     enable = true;
-    vhost = "epiquote2.fr";
+    vhost = "epiquote.fr";
   };
   my.roles.seedbox = {
     enable = true;
-    vhost = "torrent.koin2.fr";
+    vhost = "torrent.koin.fr";
   };
   my.roles.irc-client = {
     enable = true;
-    vhost = "weechat.koin2.fr";
+    vhost = "weechat.koin.fr";
     users = [ config.users.users.seirl ];
   };
 
   # Pin version, upgrades are manual.
   services.postgresql.package = pkgs.postgresql_14;
 
-  # Temporary IP while there's no TLD for this one.
-  deployment.targetHost = "2a01:4f9:2b:c90:d000::1";
+  deployment.targetHost = "hyjal.koin.fr";
 
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/vda";

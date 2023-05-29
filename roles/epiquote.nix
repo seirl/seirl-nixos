@@ -82,8 +82,8 @@ in
 
       users.users.nginx.extraGroups = [ "secrets" ];
       services.nginx.virtualHosts."${cfg.vhost}" = {
-        # forceSSL = true;
-        # enableACME = true;
+        forceSSL = true;
+        enableACME = true;
 
         locations."/static/" = {
           alias = "${pkgs.epiquote}/static/";

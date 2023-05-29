@@ -58,8 +58,8 @@ in
     }));
 
     services.nginx.virtualHosts."${cfg.vhost}" = {
-      # forceSSL = true;
-      # enableACME = true;
+      forceSSL = true;
+      enableACME = true;
 
       locations."/weechat" = {
         proxyPass = "http://localhost:${toString relayPort}/weechat";
