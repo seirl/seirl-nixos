@@ -11,6 +11,7 @@ in
 
   my.roles.nginx.enable = true;
   my.roles.badeconomics.enable = true;
+  my.roles.epiquote.enable = true;
   my.roles.seedbox = {
     enable = true;
     vhost = "torrent.koin2.fr";
