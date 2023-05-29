@@ -9,7 +9,7 @@ poetry2nix.mkPoetryApplication {
   # };
   projectDir = /home/seirl/code/epiquote;
 
-  # workaround https://github.com/nix-community/poetry2nix/issues/568
+  # https://github.com/nix-community/poetry2nix/blob/master/docs/edgecases.md#modulenotfounderror-no-module-named-packagename
   overrides = poetry2nix.overrides.withDefaults (self: super:
     let
       addBuildInputs = name: buildInputs: super.${name}.overridePythonAttrs (old: {
@@ -19,16 +19,28 @@ poetry2nix.mkPoetryApplication {
     in
     mkOverrides {
       confusable-homoglyphs = [ "setuptools" ];
+      django-bootstrap-form = [ "setuptools" ];
+      django-registration = [ "setuptools" ];
       sqlparse = [ "flit-core" ];
       urllib3 = [ "hatchling" ];
     }
   );
 
-
-
   propagatedBuildInputs = with python3.pkgs; [
     setuptools
+    gunicorn
   ];
+
+  postInstall = ''
+    export DJANGO_SETTINGS_MODULE="epiquote.settings"
+    mkdir -p $out/static
+    cat <<EOF > settings.ini
+    [epiquote]
+      static_root = $out/static
+    EOF
+    export EPIQUOTE_SETTINGS_PATH=./settings.ini
+    python3 ./manage.py collectstatic --noinput
+  '';
 
   meta = with lib; {
     homepage = "https://github.com/seirl/epiquote";
