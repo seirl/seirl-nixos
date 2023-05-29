@@ -1,13 +1,12 @@
 { lib, python3, poetry2nix, fetchFromGitHub }:
 
 poetry2nix.mkPoetryApplication {
-  # projectDir = fetchFromGitHub {
-  #   owner = "seirl";
-  #   repo = "epiquote";
-  #   rev = "d087372187675be1c0503e122ddc9d3c8f2e3864";
-  #   sha256 = "sha256-4WweDj8lbJk+LiWG0qylMBkRGxhcuQgiTTz5Wf13bSQ=";
-  # };
-  projectDir = /home/seirl/code/epiquote;
+  projectDir = fetchFromGitHub {
+    owner = "seirl";
+    repo = "epiquote";
+    rev = "d13e0972a068b0e15daed15da80de56ac3c306e4";
+    sha256 = "sha256-NSHcEvCEnDz/0xqLJ3L6VEHvqBLzcsiIiksrLY5YZ44=";
+  };
 
   # https://github.com/nix-community/poetry2nix/blob/master/docs/edgecases.md#modulenotfounderror-no-module-named-packagename
   overrides = poetry2nix.overrides.withDefaults (self: super:
