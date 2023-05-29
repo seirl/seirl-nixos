@@ -8,6 +8,12 @@ in
   options = {
     my.roles.epiquote = {
       enable = lib.mkEnableOption "Epiquote website";
+      vhost = lib.mkOption {
+        type = lib.types.str;
+        default = "127.0.0.1";
+        example = "epiquote.example.com";
+        description = "Hostname of the nginx vhost.";
+      };
       workers = lib.mkOption {
         type = lib.types.int;
         default = 4;
@@ -51,6 +57,15 @@ in
         };
         wantedBy = [ "multi-user.target" ];
         wants = [ "network.target" ];
+      };
+
+      users.users.nginx.extraGroups = [ "secrets" ];
+      services.nginx.virtualHosts."${cfg.vhost}" = {
+        # forceSSL = true;
+        # enableACME = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString epiquotePort}";
+        };
       };
     };
 }
