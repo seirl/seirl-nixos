@@ -28,8 +28,11 @@ in
         epiquote = {
           prod = true;
           static_root = "${pkgs.epiquote}/static";
+          database_url = "postgresql:///epiquote";
         };
-        epita_connect.enable = false;
+        epita_connect = {
+          enable = false;
+        };
       };
       epiquoteSettingsPath = pkgs.writeText "settings.conf"
         (lib.generators.toINI { } epiquoteSettings);
@@ -45,9 +48,10 @@ in
         };
         serviceConfig = {
           User = "epiquote";
-          DynamicUser = true;
           LoadCredential =
             "creds.conf:${config.sops.secrets."epiquote/creds".path}";
+          ExecStartPre =
+            "${pkgs.epiquote.dependencyEnv}/bin/django-admin migrate";
           ExecStart = lib.concatStringsSep " " [
             "${pkgs.epiquote.dependencyEnv}/bin/gunicorn"
             "--workers ${toString cfg.workers}"
@@ -57,6 +61,21 @@ in
         };
         wantedBy = [ "multi-user.target" ];
         wants = [ "network.target" ];
+        after = [ "postgresql.service" ];
+        requires = [ "postgresql.service" ];
+      };
+
+      services.postgresql = {
+        enable = true;
+        ensureDatabases = [ "epiquote" ];
+        ensureUsers = [
+          {
+            name = "epiquote";
+            ensurePermissions = {
+              "DATABASE epiquote" = "ALL PRIVILEGES";
+            };
+          }
+        ];
       };
 
       users.users.nginx.extraGroups = [ "secrets" ];
@@ -67,5 +86,13 @@ in
           proxyPass = "http://127.0.0.1:${toString epiquotePort}";
         };
       };
+
+      users.users.epiquote = {
+        description = "Epiquote user";
+        isSystemUser = true;
+        group = "epiquote";
+      };
+
+      users.groups.epiquote = {};
     };
 }

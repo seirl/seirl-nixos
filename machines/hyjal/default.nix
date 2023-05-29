@@ -25,6 +25,9 @@ in
     users = [ config.users.users.seirl ];
   };
 
+  # Pin version, upgrades are manual.
+  services.postgresql.package = pkgs.postgresql_14;
+
   # Temporary IP while there's no TLD for this one.
   deployment.targetHost = "2a01:4f9:2b:c90:d000::1";
 
