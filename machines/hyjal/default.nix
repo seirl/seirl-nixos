@@ -25,7 +25,6 @@ in
   deployment.targetHost = "2a01:4f9:2b:c90:d000::1";
 
   boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
 
   networking.useDHCP = true;
