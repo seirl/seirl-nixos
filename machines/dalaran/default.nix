@@ -26,7 +26,7 @@ in
 
   environment.systemPackages = with pkgs; [
     anki-bin
-    (openai-whisper.override { cudaSupport = true; })
+    # (openai-whisper.override { cudaSupport = true; })
   ];
 
   boot.loader.systemd-boot.enable = true;
