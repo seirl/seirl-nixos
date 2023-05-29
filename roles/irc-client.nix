@@ -50,7 +50,7 @@ in
           Environment = [ "TMUX_TMPDIR=/run/user/1000" ]; # aaaaa
           Type = "forking";
           ExecStart = "${pkgs.tmux}/bin/tmux -2 new-session -d -s irc ${pkgs.weechat}/bin/weechat \\; set status off";
-          ExecStop = "${pkgs.tmux} kill-session -t irc";
+          ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t irc";
         };
         wantedBy = [ "multi-user.target" ];
         wants = [ "network.target" ];
