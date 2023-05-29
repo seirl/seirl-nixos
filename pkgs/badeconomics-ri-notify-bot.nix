@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
     praw
     # python3.pkgs.databases is marked as broken, only needed for check
-    (slack-sdk.overridePythonAttrs (_: {doCheck = false;}))
+    (slack-sdk.overridePythonAttrs (_: { doCheck = false; }))
   ];
 
   meta = with lib; {

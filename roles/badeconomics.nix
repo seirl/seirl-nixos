@@ -2,13 +2,14 @@
 
 let
   cfg = config.my.roles.badeconomics;
-in {
+in
+{
   options = {
     my.roles.badeconomics.enable = lib.mkEnableOption "BadEconomics bots.";
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets."reddit-econ/ri-notify-bot" = {};
+    sops.secrets."reddit-econ/ri-notify-bot" = { };
 
     systemd.services.badeconomics-ri-notify-bot = {
       serviceConfig = {
