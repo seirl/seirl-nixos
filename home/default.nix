@@ -12,6 +12,7 @@
     ./i3.nix
     ./laptop.nix
     ./mercurial.nix
+    ./nvim
     ./ssh.nix
     ./tmux.nix
     ./urxvt.nix

@@ -32,8 +32,19 @@
   security.sudo.enable = true;
 
   programs.less.enable = true;
-  programs.vim.defaultEditor = true;
   programs.mosh.enable = true;
+
+  # Neovim
+  programs.vim = {
+    defaultEditor = true;
+  };
+  programs.neovim = {
+    enable = true;
+    # defaultEditor = true;
+    # viAlias = true;
+    # vimAlias = true;
+    # vimdiffAlias = true;
+  };
 
   # Zsh
   programs.zsh.enable = true;
