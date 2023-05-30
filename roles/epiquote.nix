@@ -100,6 +100,6 @@ in
         group = "epiquote";
       };
 
-      users.groups.epiquote = {};
+      users.groups.epiquote = { };
     };
 }
