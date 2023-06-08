@@ -20,6 +20,8 @@ in
         ExecStart =
           "${pkgs.badeconomics-ri-notify-bot}/bin/badeconomics-ri-notify-bot "
           + "-c \${CREDENTIALS_DIRECTORY}/creds";
+        Restart = "always";
+        RestartSec = "10s";
       };
       wantedBy = [ "multi-user.target" ];
       wants = [ "network.target" ];
