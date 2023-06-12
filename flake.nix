@@ -13,6 +13,9 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+    };
   };
   outputs = { self, nixpkgs, ... } @ inputs: {
     # Colmena hive output
@@ -30,6 +33,7 @@
           imports = [
             inputs.home-manager.nixosModules.home-manager
             inputs.sops-nix.nixosModules.sops
+            inputs.nur.nixosModules.nur
           ];
 
           # deployment.replaceUnknownProfiles = true;
