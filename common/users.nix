@@ -9,7 +9,8 @@ rec {
     extraGroups = [ "wheel" "networkmanager" "audio" "mlocate" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILiua8eEg+nU0XSbYPTgnOMftzvpbN+u7v5jDabeO/0E"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILiua8eEg+nU0XSbYPTgnOMftzvpbN+u7v5jDabeO/0E seirl"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEbuYBUcnE4DKIl8aJhBr3WDKwefZLBgoATyMxu2ISRy seirl@google"
     ];
   };
 
