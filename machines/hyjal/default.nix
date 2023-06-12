@@ -11,6 +11,10 @@ in
 
   my.roles.nginx.enable = true;
   my.roles.badeconomics.enable = true;
+  my.roles.crowdbar = {
+    enable = true;
+    vhost = "crowdbar.koin.fr";
+  };
   my.roles.epiquote = {
     enable = true;
     vhost = "epiquote.fr";

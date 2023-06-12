@@ -1,6 +1,7 @@
 {
   imports = [
     ./badeconomics.nix
+    ./crowdbar.nix
     ./ecryptfs.nix
     ./epiquote.nix
     ./gaming.nix
