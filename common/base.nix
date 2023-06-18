@@ -7,6 +7,7 @@
     pciutils
     usbutils
     binutils
+    inetutils
     file
     tree
     python3
