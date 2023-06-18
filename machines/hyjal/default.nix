@@ -28,6 +28,11 @@ in
     vhost = "weechat.koin.fr";
     users = [ config.users.users.seirl ];
   };
+  my.roles.webuser = {
+    enable = true;
+    vhost = "koin.fr";
+    user = config.users.users.seirl;
+  };
 
   # Pin version, upgrades are manual.
   services.postgresql.package = pkgs.postgresql_14;

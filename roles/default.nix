@@ -12,5 +12,6 @@
     ./nvidia.nix
     ./samba_server.nix
     ./seedbox.nix
+    ./webuser.nix
   ];
 }
