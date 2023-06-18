@@ -23,28 +23,28 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-      systemd.services.crowdbar = {
-        serviceConfig = {
-          DynamicUser = true;
-          ExecStart = lib.concatStringsSep " " [
-            "${pkgs.crowdbar.dependencyEnv}/bin/gunicorn"
-            "--workers ${toString cfg.workers}"
-            "-b 127.0.0.1:${toString crowdbarPort}"
-            "--worker-class aiohttp.GunicornWebWorker"
-            "crowdbar.app:get_app"
-          ];
-        };
-        wantedBy = [ "multi-user.target" ];
-        wants = [ "network.target" ];
+    systemd.services.crowdbar = {
+      serviceConfig = {
+        DynamicUser = true;
+        ExecStart = lib.concatStringsSep " " [
+          "${pkgs.crowdbar.dependencyEnv}/bin/gunicorn"
+          "--workers ${toString cfg.workers}"
+          "-b 127.0.0.1:${toString crowdbarPort}"
+          "--worker-class aiohttp.GunicornWebWorker"
+          "crowdbar.app:get_app"
+        ];
       };
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network.target" ];
+    };
 
-      services.nginx.virtualHosts."${cfg.vhost}" = {
-        forceSSL = true;
-        enableACME = true;
+    services.nginx.virtualHosts."${cfg.vhost}" = {
+      forceSSL = true;
+      enableACME = true;
 
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString crowdbarPort}";
-        };
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString crowdbarPort}";
       };
     };
+  };
 }
