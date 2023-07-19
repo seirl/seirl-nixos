@@ -1,0 +1,22 @@
+snippet nc "New subcategory" !b
+{
+  "name": "$1",
+  "id": "`!p
+if not snip.c:
+	import secrets
+	snip.rv = secrets.token_hex(4)
+else:
+    snip.rv = snip.c`",
+  "items": [
+    ${VISUAL}
+  ]
+},
+endsnippet
+
+snippet nt "New toy" !b
+{
+  "itemId": $1,
+  "name": "$2",
+  "icon": "$3"
+},
+endsnippet
