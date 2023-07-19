@@ -4,7 +4,7 @@
   config = {
     programs.zsh = {
       enable = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       initExtraFirst = ''
         source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
       '';
