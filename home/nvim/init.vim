@@ -38,8 +38,8 @@ set incsearch "search incrementally
 
 "Backup/swap/undo
 set backup
+set backupdir-=.
 set undofile
-set directory=~/.local/share/nvim/swap
 
 "Other
 set noerrorbells "remove terminal bells on error
