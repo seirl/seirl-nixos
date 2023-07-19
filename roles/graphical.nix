@@ -11,13 +11,16 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       i3
-      pcmanfm
       rxvt-unicode
       pavucontrol
-      texlive.combined.scheme-full
       xorg.xkill
       xorg.xev
+
+      pcmanfm
+      lxmenu-data
+      shared-mime-info
       gnome.adwaita-icon-theme
+      xfce.tumbler
 
       google-chrome
       firefox
