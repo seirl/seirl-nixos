@@ -7,6 +7,7 @@ in
   imports = [
     my.modules
     ./hardware.nix
+    ./network.nix
   ];
 
   my.roles.ecryptfs.enable = true;
@@ -17,8 +18,6 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
-  networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Paris";
 }

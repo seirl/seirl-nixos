@@ -7,6 +7,8 @@ in
   imports = [
     my.modules
     ./hardware.nix
+    ./network.nix
+    ./printer.nix
   ];
 
   my.roles.ecryptfs.enable = true;
@@ -24,14 +26,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.networkmanager.enable = true;
-
   time.timeZone = "Europe/Zurich";
 
   nixpkgs.config.cudaCapabilities = [ "5.0" "5.2" "5.3" ];
-
-  services.printing.enable = true;
-  services.avahi.enable = true;
-  services.avahi.nssmdns = true;
-  services.printing.drivers = [ pkgs.hplipWithPlugin ];
 }
