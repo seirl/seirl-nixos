@@ -22,7 +22,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     system.activationScripts.webuser = ''
       install -d -m 750 '${baseDir}'
       chown -R '${cfg.user.name}:webuser' ${baseDir}
