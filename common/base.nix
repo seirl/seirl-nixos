@@ -24,7 +24,6 @@
     gnumake
     jq
     colmena
-    vim_configurable
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -36,15 +35,9 @@
   programs.mosh.enable = true;
 
   # Neovim
-  programs.vim = {
-    defaultEditor = true;
-  };
   programs.neovim = {
     enable = true;
-    # defaultEditor = true;
-    # viAlias = true;
-    # vimAlias = true;
-    # vimdiffAlias = true;
+    defaultEditor = true;
   };
 
   # Zsh
