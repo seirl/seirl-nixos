@@ -7,15 +7,18 @@
   programs.home-manager.enable = true;
 
   imports = [
+    ./alacritty.nix
     ./git.nix
     ./graphical.nix
     ./i3.nix
+    ./kitty.nix
     ./laptop.nix
     ./mercurial.nix
     ./nvim
     ./ssh.nix
     ./tmux.nix
     ./urxvt.nix
+    ./wezterm.nix
     ./xcompose.nix
     ./zsh.nix
   ];
