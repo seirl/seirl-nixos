@@ -47,12 +47,15 @@ in
       epiquoteManage = pkgs.writeShellScriptBin "epiquote-manage" ''
         export DJANGO_SETTINGS_MODULE=epiquote.settings
         export EPIQUOTE_SETTINGS_PATH=${epiquoteSettingsPath}
-        export EPIQUOTE_CREDS_PATH=/run/credentials/epiquote.service/creds.conf
+        export EPIQUOTE_CREDS_PATH=${config.sops.secrets."epiquote/creds".path}
         exec ${epiquoteEnv}/bin/django-admin $*
       '';
     in
     lib.mkIf cfg.enable {
-      sops.secrets."epiquote/creds" = { };
+      sops.secrets."epiquote/creds" = {
+        owner = "epiquote";
+        group = "epiquote";
+      };
 
       systemd.services.epiquote = {
         environment = {
