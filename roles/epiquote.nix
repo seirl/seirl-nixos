@@ -24,11 +24,17 @@ in
 
   config =
     let
+      epiquotePkg = pkgs.epiquote;
+      epiquoteEnv = pkgs.python3.withPackages (ps: [
+        epiquotePkg
+        ps.gunicorn
+        ps.ipython
+      ]);
       epiquoteSettings = {
         epiquote = {
           prod = true;
           use_x_forwarded_port = true;
-          static_root = "${pkgs.epiquote}/static";
+          static_root = "${epiquotePkg}/static";
           database_url = "postgresql:///epiquote";
           allowed_hosts = "${cfg.vhost}";
         };
@@ -38,6 +44,12 @@ in
       };
       epiquoteSettingsPath = pkgs.writeText "settings.conf"
         (lib.generators.toINI { } epiquoteSettings);
+      epiquoteManage = pkgs.writeShellScriptBin "epiquote-manage" ''
+        export DJANGO_SETTINGS_MODULE=epiquote.settings
+        export EPIQUOTE_SETTINGS_PATH=${epiquoteSettingsPath}
+        export EPIQUOTE_CREDS_PATH=/run/credentials/epiquote.service/creds.conf
+        exec ${epiquoteEnv}/bin/django-admin $*
+      '';
     in
     lib.mkIf cfg.enable {
       sops.secrets."epiquote/creds" = { };
@@ -53,9 +65,9 @@ in
           LoadCredential =
             "creds.conf:${config.sops.secrets."epiquote/creds".path}";
           ExecStartPre =
-            "${pkgs.epiquote.dependencyEnv}/bin/django-admin migrate";
+            "${epiquoteEnv}/bin/django-admin migrate";
           ExecStart = lib.concatStringsSep " " [
-            "${pkgs.epiquote.dependencyEnv}/bin/gunicorn"
+            "${epiquoteEnv}/bin/gunicorn"
             "--workers ${toString cfg.workers}"
             "-b 127.0.0.1:${toString epiquotePort}"
             "epiquote.wsgi:application"
@@ -88,7 +100,7 @@ in
         enableACME = true;
 
         locations."/static/" = {
-          alias = "${pkgs.epiquote}/static/";
+          alias = "${epiquotePkg}/static/";
         };
 
         locations."/" = {
@@ -100,6 +112,8 @@ in
         description = "Epiquote user";
         isSystemUser = true;
         group = "epiquote";
+        useDefaultShell = true;
+        packages = [ epiquoteManage ];
       };
 
       users.groups.epiquote = { };

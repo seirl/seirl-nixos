@@ -8,11 +8,6 @@ poetry2nix.mkPoetryApplication {
     sha256 = "sha256-3qDaUiysiZ/7+te/UxHfwUppWq0o7vpA4wtyTfww7Mo=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    setuptools
-    gunicorn
-  ];
-
   postInstall = ''
     export DJANGO_SETTINGS_MODULE="epiquote.settings"
     mkdir -p $out/static
