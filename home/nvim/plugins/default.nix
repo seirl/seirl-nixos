@@ -11,6 +11,7 @@
     pkgs.vimPlugins.supertab
     pkgs.vimPlugins.nerdcommenter
     pkgs.vimPlugins.vim-eunuch
+    pkgs.vimPlugins.rust-vim
     pkgs.vimPlugins.vim-surround
     pkgs.vimPlugins.vim-jinja-languages
     pkgs.vimPlugins.vim-molokai-delroth

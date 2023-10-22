@@ -13,5 +13,6 @@ in
     my.home.alacritty.enable = true;
     my.home.urxvt.enable = true;
     my.home.xcompose.enable = true;
+    my.home.vscode.enable = true;
   };
 }

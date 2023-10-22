@@ -37,6 +37,15 @@ in
       aegisub
       audacity
       gimp-with-plugins
+
+      (vscode-with-extensions.override {
+        vscodeExtensions = with vscode-extensions; [
+          bbenoist.nix
+          ms-python.python
+          rust-lang.rust-analyzer
+          vscodevim.vim
+        ];
+      })
     ];
 
     services.xserver.enable = true;

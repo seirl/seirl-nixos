@@ -18,6 +18,7 @@
     ./ssh.nix
     ./tmux.nix
     ./urxvt.nix
+    ./vscode.nix
     ./wezterm.nix
     ./xcompose.nix
     ./zsh.nix
