@@ -12,8 +12,8 @@ in
     programs.vscode = {
       enable = true;
       userSettings = {
-          "keyboard.dispatch" = "keyCode";
-          "window.zoomLevel" = -1;
+        "keyboard.dispatch" = "keyCode";
+        "window.zoomLevel" = -1;
       };
     };
   };
