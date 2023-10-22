@@ -4,8 +4,8 @@ poetry2nix.mkPoetryApplication {
   projectDir = fetchFromGitHub {
     owner = "seirl";
     repo = "epiquote";
-    rev = "98d0dac197f157192c758339d73d9e93bf005922";
-    sha256 = "sha256-3qDaUiysiZ/7+te/UxHfwUppWq0o7vpA4wtyTfww7Mo=";
+    rev = "e52233b08c2b6d68872ac13e4dc28796beb4a453";
+    sha256 = "sha256-/qkKjzdnwY9B7zGN6DYcCF+TU3RNmyN5ksmblR/b5Do=";
   };
 
   postInstall = ''

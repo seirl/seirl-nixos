@@ -33,6 +33,9 @@ in
       epiquoteSettings = {
         epiquote = {
           prod = true;
+          admins = lib.strings.concatStringsSep "," [
+            "Antoine Pietri <antoine.pietri1+epiquote@gmail.com>"
+          ];
           use_x_forwarded_port = true;
           static_root = "${epiquotePkg}/static";
           database_url = "postgresql:///epiquote";
