@@ -14,6 +14,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [
     setuptools
+    setuptools-scm
     praw
     # python3.pkgs.databases is marked as broken, only needed for check
     (slack-sdk.overridePythonAttrs (_: { doCheck = false; }))
