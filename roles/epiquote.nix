@@ -67,6 +67,8 @@ in
         requires = [ "postgresql.service" ];
       };
 
+      services.postfix.enable = true;
+
       services.postgresql = {
         enable = true;
         ensureDatabases = [ "epiquote" ];
