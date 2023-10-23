@@ -8,6 +8,7 @@
     ./graphical.nix
     ./irc-client.nix
     ./laptop.nix
+    ./monitoring.nix
     ./nginx.nix
     ./nvidia.nix
     ./samba_server.nix

@@ -20,6 +20,10 @@ in
     enable = true;
     vhost = "epiquote.fr";
   };
+  my.roles.monitoring = {
+    enable = true;
+    vhost = "grafana.koin.fr";
+  };
   my.roles.seedbox = {
     enable = true;
     vhost = "torrent.koin.fr";
@@ -37,6 +41,12 @@ in
 
   # Pin version, upgrades are manual.
   services.postgresql.package = pkgs.postgresql_14;
+
+  services.prometheus.exporters.node = {
+    enable = true;
+    enabledCollectors = [ "systemd" ];
+    port = 9002;
+  };
 
   deployment.targetHost = "hyjal.koin.fr";
 

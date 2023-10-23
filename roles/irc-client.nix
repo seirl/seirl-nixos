@@ -2,7 +2,7 @@
 
 let
   cfg = config.my.roles.irc-client;
-  relayPort = 9001;
+  relayPort = 9201;
 in
 {
   options.my.roles.irc-client = {
