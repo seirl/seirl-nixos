@@ -41,7 +41,8 @@ in
       (vscode-with-extensions.override {
         vscodeExtensions = with vscode-extensions; [
           bbenoist.nix
-          ms-python.python
+          # broken https://github.com/NixOS/nixpkgs/issues/263493
+          # ms-python.python
           rust-lang.rust-analyzer
           vscodevim.vim
         ];
