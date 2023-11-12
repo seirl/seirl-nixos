@@ -23,7 +23,7 @@
   };
   outputs = { self, nixpkgs, ... } @ inputs: {
     # Custom packages
-    packages.x86_64-linux.pkgs = import ./pkgs rec {
+    packages.x86_64-linux = import ./pkgs rec {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       poetry2nix = inputs.poetry2nix.lib.mkPoetry2Nix { inherit pkgs; };
     };
@@ -46,7 +46,7 @@
             inputs.nur.nixosModules.nur
           ];
           nixpkgs.overlays = [
-            (final: prev: self.packages.x86_64-linux.pkgs)
+            (final: prev: self.packages.x86_64-linux)
           ];
 
           # deployment.replaceUnknownProfiles = true;
