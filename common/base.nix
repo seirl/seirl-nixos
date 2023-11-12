@@ -20,7 +20,7 @@
     unzip
     unrar
     p7zip
-    ffmpeg
+    ffmpeg-full
     gnumake
     jq
     colmena
