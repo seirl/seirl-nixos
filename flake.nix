@@ -13,11 +13,21 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur = {
       url = "github:nix-community/NUR";
     };
   };
   outputs = { self, nixpkgs, ... } @ inputs: {
+    # Custom packages
+    packages.x86_64-linux.pkgs = import ./pkgs rec {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      poetry2nix = inputs.poetry2nix.lib.mkPoetry2Nix { inherit pkgs; };
+    };
+
     # Colmena hive output
     colmena =
       let
@@ -34,6 +44,9 @@
             inputs.home-manager.nixosModules.home-manager
             inputs.sops-nix.nixosModules.sops
             inputs.nur.nixosModules.nur
+          ];
+          nixpkgs.overlays = [
+            (final: prev: self.packages.x86_64-linux.pkgs)
           ];
 
           # deployment.replaceUnknownProfiles = true;

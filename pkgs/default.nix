@@ -1,5 +1,7 @@
-self: super: {
-  badeconomics-ri-notify-bot = super.callPackage ./badeconomics-ri-notify-bot.nix { };
-  crowdbar = super.callPackage ./crowdbar.nix { };
-  epiquote = super.callPackage ./epiquote.nix { };
+{ pkgs, poetry2nix, ... }:
+
+{
+  badeconomics-ri-notify-bot = pkgs.callPackage ./badeconomics-ri-notify-bot.nix { };
+  crowdbar = pkgs.callPackage ./crowdbar.nix { inherit poetry2nix; };
+  epiquote = pkgs.callPackage ./epiquote.nix { inherit poetry2nix; };
 }
