@@ -59,6 +59,6 @@ in
       };
     };
 
-    home.file.".local/share/urxvt/ext/font-size".source = ./source/urxvt/ext/font-size;
+    home.file."${config.xdg.dataHome}/urxvt/ext/font-size".source = ./ext/font-size;
   };
 }

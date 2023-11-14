@@ -17,10 +17,10 @@
     ./nvim
     ./ssh.nix
     ./tmux.nix
-    ./urxvt.nix
+    ./urxvt
     ./vscode.nix
     ./wezterm.nix
-    ./xcompose.nix
+    ./xcompose
     ./zsh.nix
   ];
 

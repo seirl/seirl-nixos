@@ -9,6 +9,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.file.".XCompose".source = ./source/xcompose.conf;
+    home.file.".XCompose".source = ./xcompose.conf;
   };
 }
