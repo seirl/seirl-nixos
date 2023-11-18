@@ -15,9 +15,6 @@ in
         mingwSupport = true;
       })
       winetricks
-      (instawow.override {
-        plugins = with instawowPlugins; [ tsm megazygor ];
-      })
     ];
 
     hardware.opengl.driSupport32Bit = true;

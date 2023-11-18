@@ -37,6 +37,7 @@ rec {
 
     # TODO: make that automatic for all users.
     config = {
+      my.home.gaming.enable = config.my.roles.gaming.enable;
       my.home.graphical.enable = config.my.roles.graphical.enable;
       my.home.laptop.enable = config.my.roles.laptop.enable;
     };

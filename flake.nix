@@ -48,6 +48,9 @@
           nixpkgs.overlays = [
             (final: prev: self.packages.x86_64-linux)
           ];
+          home-manager.sharedModules = [
+            inputs.sops-nix.homeManagerModules.sops
+          ];
 
           # deployment.replaceUnknownProfiles = true;
           deployment.allowLocalDeployment = true;

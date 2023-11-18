@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   home.username = "seirl";
@@ -8,9 +8,11 @@
 
   imports = [
     ./alacritty.nix
+    ./gaming.nix
     ./git.nix
     ./graphical.nix
     ./i3.nix
+    ./instawow.nix
     ./kitty.nix
     ./laptop.nix
     ./mercurial.nix
@@ -27,4 +29,12 @@
   home.sessionPath = [
     "$HOME/.local/bin"
   ];
+
+  sops = {
+    defaultSopsFile = ../secrets/seirl.yaml;
+    age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+  };
+  home.activation.restart-sops-nix = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+     ${pkgs.systemd}/bin/systemctl --user restart sops-nix
+  '';
 }
