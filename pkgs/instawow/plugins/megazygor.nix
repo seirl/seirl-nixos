@@ -24,13 +24,13 @@ in
 
 python3.pkgs.buildPythonPackage rec {
   pname = "instawow_megazygor";
-  version = "a9239d4c4f30cae0887db0f8cf34d40152733c96";
+  version = "eec9ba546c79d49b6508b6ba6070192f23eac6d9";
 
   src = fetchFromBitbucket {
     owner = "serialk";
     repo = "instawow-megazygor";
     rev = version;
-    sha256 = "sha256-HDKIWD28oeD6DPkFPv7PyH96z5gL/CPJY2YP6TJuMO8=";
+    sha256 = "sha256-lif9hMBrfu4SJoh31D3yQHyOtEny0hj0zxv6e/USoIs=";
   };
 
   pythonRemoveDeps = [
