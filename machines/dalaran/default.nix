@@ -28,5 +28,5 @@ in
 
   time.timeZone = "Europe/Zurich";
 
-  nixpkgs.config.cudaCapabilities = [ "5.0" "5.2" "5.3" ];
+  nixpkgs.config.cudaCapabilities = [ "5.2" ];
 }
