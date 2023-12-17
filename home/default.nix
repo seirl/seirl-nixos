@@ -35,6 +35,8 @@
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
   };
   home.activation.restart-sops-nix = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-     ${pkgs.systemd}/bin/systemctl --user restart sops-nix
+    if ${pkgs.systemd}/bin/systemctl --user list-unit-files | grep -q sops-nix.service; then
+      ${pkgs.systemd}/bin/systemctl --user restart sops-nix
+    fi
   '';
 }
