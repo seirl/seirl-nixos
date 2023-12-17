@@ -28,8 +28,8 @@ in
       settings = {
         rpc-enabled = true;
         rpc-port = transmissionRpcPort;
-        rpc-host-whitelist = "127.0.0.1";
-        rpc-host-whitelist-enabled = true;
+        rpc-host-whitelist = "";
+        rpc-host-whitelist-enabled = false;
 
         # Cannot override: https://github.com/NixOS/nixpkgs/issues/183429
         # download-dir = "${cfg.downloadDir}";
