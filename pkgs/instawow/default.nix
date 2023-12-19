@@ -1,42 +1,15 @@
 { lib, python3, fetchFromGitHub, fetchPypi, plugins ? [ ] }:
 
-let
-  aiohttp-client-cache = python3.pkgs.buildPythonPackage rec {
-    pname = "aiohttp_client_cache";
-    version = "0.10.0";
-    pyproject = true;
-    src = fetchPypi {
-      inherit pname version;
-      sha256 = "sha256-FXU4QNqa8B8ZADmoEyJfd8gsUDI0HEjIR9B2CBP55wU=";
-    };
-    nativeBuildInputs = with python3.pkgs; [
-      poetry-core
-    ];
-    propagatedBuildInputs = with python3.pkgs; [
-      aiohttp
-      attrs
-      itsdangerous
-      url-normalize
-    ];
-    meta = with lib; {
-      description = "An async persistent cache for aiohttp requests";
-      homepage = "https://pypi.org/project/mediafire/";
-      license = licenses.mit;
-      maintainers = with maintainers; [ seirl ];
-    };
-  };
-in
-
 python3.pkgs.buildPythonApplication rec {
   pname = "instawow";
-  version = "3.1.0";
+  version = "v3.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "layday";
     repo = pname;
     rev = version;
-    sha256 = "sha256-li5rtaN6ymjlt5wa2yEbcmqfvUqKzZPKeDxHRm3Ow4U=";
+    sha256 = "sha256-xJw/tgHBfOlv5JYsWWdEJ8vpel348YtXCQsaLqgp3Z0=";
   };
 
   extras = [ ];
