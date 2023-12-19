@@ -69,8 +69,9 @@ in
         export WINEARCH=win64
         export WINEESYNC=1
         export WINEPREFIX="${wowWinePrefix}"
-        mkdir -p $( dirname "${wowPath}" )
         ${pkgs.winetricks}/bin/winetricks dxvk
+        mkdir -p "${wowSharedPath}"
+        mkdir -p $( dirname "${wowPath}" )
         ln -sfn "${wowSharedPath}" "${wowPath}"
         ${wowBackupScript}
         ${winePkg}/bin/wine64 "${wowPath}/_${wowFlavor}_/Wow.exe"
@@ -82,8 +83,12 @@ in
         export WINEARCH=win64
         export WINEESYNC=1
         export WINEPREFIX="${bnetWinePrefix}"
-        mkdir -p $( dirname "${bnetPath}" )
         ${pkgs.winetricks}/bin/winetricks dxvk
+        ${pkgs.winetricks}/bin/winetricks corefonts
+        mkdir -p "${bnetSharedPath}"
+        mkdir -p "${wowSharedPath}"
+        mkdir -p $( dirname "${bnetPath}" )
+        mkdir -p $( dirname "${bnetWowPath}" )
         ln -sfn "${bnetSharedPath}" "${bnetPath}"
         ln -sfn "${wowSharedPath}" "${bnetWowPath}"
         ${winePkg}/bin/wine64 "${bnetPath}/Battle.net.exe"
