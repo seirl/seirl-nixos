@@ -2,14 +2,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "instawow";
-  version = "v3.1.0";
+  version = "v3.2.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "layday";
     repo = pname;
     rev = version;
-    sha256 = "sha256-xJw/tgHBfOlv5JYsWWdEJ8vpel348YtXCQsaLqgp3Z0=";
+    sha256 = "sha256-eBpX+ojlrWwRXuMijnmb4lNlxIJ40Q9RUqS6txPBDiM=";
   };
 
   extras = [ ];
