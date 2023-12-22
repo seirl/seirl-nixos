@@ -13,6 +13,7 @@
     ./nvidia.nix
     ./samba_server.nix
     ./seedbox.nix
+    ./vpn-peer.nix
     ./webuser.nix
   ];
 }

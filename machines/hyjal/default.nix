@@ -10,6 +10,8 @@ in
     ./network.nix
   ];
 
+  my.roles.vpn-peer.enable = true;
+
   my.roles.nginx.enable = true;
   my.roles.badeconomics.enable = true;
   my.roles.crowdbar = {

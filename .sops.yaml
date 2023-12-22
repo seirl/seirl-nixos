@@ -10,3 +10,15 @@ creation_rules:
         - *admin_seirl
         - *machine_hyjal
         - *machine_redridge
+
+  - path_regex: secrets/machines/hyjal/[^/]+\.yaml$
+    key_groups:
+      - age:
+        - *admin_seirl
+        - *machine_hyjal
+
+  - path_regex: secrets/machines/redridge/[^/]+\.yaml$
+    key_groups:
+      - age:
+        - *admin_seirl
+        - *machine_redridge
