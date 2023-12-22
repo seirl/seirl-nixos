@@ -40,17 +40,19 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    home.file = ((lib.mapAttrs' (name: value: {
-      name = "${configDir}/profiles/${name}/config.json";
-      value.text = builtins.toJSON {
-        profile = name;
-        addon_dir = value.addonDir;
-        game_flavour = value.gameFlavor;
-      };
-    }) cfg.profiles)
+    home.file = ((lib.mapAttrs'
+      (name: value: {
+        name = "${configDir}/profiles/${name}/config.json";
+        value.text = builtins.toJSON {
+          profile = name;
+          addon_dir = value.addonDir;
+          game_flavour = value.gameFlavor;
+        };
+      })
+      cfg.profiles)
     // (if (cfg.credsPath != null) then {
       "${configDir}/config.json".source =
         (config.lib.file.mkOutOfStoreSymlink cfg.credsPath);
-    } else {}));
+    } else { }));
   };
 }
