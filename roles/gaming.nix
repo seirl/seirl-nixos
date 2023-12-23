@@ -4,8 +4,8 @@ let
   cfg = config.my.roles.gaming;
 in
 {
-  options = {
-    my.roles.gaming.enable = lib.mkEnableOption "Gaming computer";
+  options.my.roles.gaming = {
+    enable = lib.mkEnableOption "Gaming computer";
   };
 
   config = lib.mkIf cfg.enable {
@@ -22,6 +22,36 @@ in
       enable = true;
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
+    };
+
+    networking.firewall.allowedTCPPorts = [
+      47984
+      47989
+      47990
+      48010
+    ];
+    networking.firewall.allowedUDPPorts = [
+      7
+      9
+      47998
+      47999
+      47800
+    ];
+    security.wrappers.sunshine = {
+      owner = "root";
+      group = "root";
+      capabilities = "cap_sys_admin+p";
+      source = "${pkgs.sunshine}/bin/sunshine";
+    };
+
+    systemd.user.services.sunshine = {
+      description = "sunshine";
+      wantedBy = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${config.security.wrapperDir}/sunshine";
+        Restart = "on-failure";
+        RestartSec = 5;
+      };
     };
 
     # Drawful 2 fix.
