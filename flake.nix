@@ -21,7 +21,7 @@
       url = "github:nix-community/NUR";
     };
   };
-  outputs = { self, nixpkgs, ... } @ inputs: {
+  outputs = { self, nixpkgs, ... } @ inputs: rec {
     # Custom packages
     packages.x86_64-linux = import ./pkgs rec {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
@@ -50,6 +50,13 @@
           ];
           home-manager.sharedModules = [
             inputs.sops-nix.homeManagerModules.sops
+            {
+              config = {
+                news.display = "silent";
+                news.json = pkgs.lib.mkForce { };
+                news.entries = pkgs.lib.mkForce [ ];
+              };
+            }
           ];
 
           # deployment.replaceUnknownProfiles = true;
@@ -61,6 +68,8 @@
           system.stateVersion = "22.11";
         };
       } // machines;
+
+    nixosConfigurations = (inputs.colmena.lib.makeHive self.colmena).nodes;
 
     homeConfigurations = {
       "seirl" = inputs.home-manager.lib.homeManagerConfiguration rec {
