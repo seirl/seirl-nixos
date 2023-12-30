@@ -50,7 +50,7 @@ in
       serviceConfig = {
         ExecStart = "${config.security.wrapperDir}/sunshine";
         Restart = "on-failure";
-        RestartSec = 5;
+        RestartSec = 30;
       };
     };
 
