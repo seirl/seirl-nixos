@@ -71,6 +71,11 @@
 
     nixosConfigurations = (inputs.colmena.lib.makeHive self.colmena).nodes;
 
+    images = builtins.mapAttrs
+      (name: value: value.config.system.build.sdImage)
+      (nixpkgs.lib.attrsets.filterAttrs (n: v: v ? config.system.build.sdImage)
+        nixosConfigurations);
+
     homeConfigurations = {
       "seirl" = inputs.home-manager.lib.homeManagerConfiguration rec {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
