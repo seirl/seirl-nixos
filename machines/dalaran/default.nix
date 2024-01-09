@@ -11,6 +11,8 @@ in
     ./printer.nix
   ];
 
+  my.roles.vpn-peer.enable = true;
+
   my.roles.ecryptfs.enable = true;
   my.roles.gaming.enable = true;
   my.roles.graphical.enable = true;

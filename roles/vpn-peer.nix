@@ -12,6 +12,11 @@ let
       publicKey = "BmectuKYQgE0CHyfU8OlKyxfwXSds6JustGUEJCnYUs=";
       sopsFile = ../secrets/machines/hyjal/wireguard.yaml;
     };
+    dalaran = {
+      clientNum = 2;
+      publicKey = "DTAFYlb1QnIbEl22j3PiA2JBnwLunqiyR9jJ4R3Bmzw=";
+      sopsFile = ../secrets/machines/dalaran/wireguard.yaml;
+    };
     redridge = {
       clientNum = 3;
       publicKey = "WjYll9aqjlQGc9x1Pqs0ieLjBA6fc4+jWDQIzo3qdzE=";
