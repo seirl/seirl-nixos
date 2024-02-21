@@ -10,6 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     my.home.i3.enable = true;
+    my.home.gnome.enable = true;
     my.home.alacritty.enable = true;
     my.home.urxvt.enable = true;
     my.home.xcompose.enable = true;
