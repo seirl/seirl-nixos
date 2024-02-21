@@ -10,6 +10,9 @@
         host = "*";
         extraOptions = {
           AddKeysToAgent = "yes";
+          ControlPersist = "yes";
+          ServerAliveInterval = 15;
+          ConnectTimeout = 60;
         };
       };
     };
