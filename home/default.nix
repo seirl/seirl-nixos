@@ -10,6 +10,8 @@
     ./alacritty.nix
     ./gaming.nix
     ./git.nix
+    ./gnome.nix
+    ./gnome-terminal.nix
     ./graphical.nix
     ./i3.nix
     ./instawow.nix
