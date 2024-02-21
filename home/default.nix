@@ -32,6 +32,8 @@
     "$HOME/.local/bin"
   ];
 
+  programs.bash.enable = true;
+
   sops = {
     defaultSopsFile = ../secrets/seirl.yaml;
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
