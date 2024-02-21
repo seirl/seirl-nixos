@@ -62,27 +62,23 @@
         };
       } // machines;
 
-    # Home configurations.
-    # This exposes the home configurations of each user@host pair directly by
-    # extracting them from the generated colmena hive config. This allows
-    # non-NixOS nodes to apply their home-manager config locally.
-    homeConfigurations =
-      let
-        hive = (inputs.colmena.lib.makeHive self.colmena);
-      in
-      with nixpkgs.lib; listToAttrs (
-        flatten (
-          mapAttrsToList
-            (machine: machineConfig: (
-              mapAttrsToList
-                (user: homeConfig: (
-                  { name = "${user}@${machine}"; value = homeConfig; }
-                ))
-                machineConfig.config.home-manager.users
-            ))
-            hive.nodes
-        )
-      );
+    homeConfigurations = {
+      "seirl" = inputs.home-manager.lib.homeManagerConfiguration rec {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [
+          {
+            imports = [ ./home inputs.sops-nix.homeManagerModules.sops ];
+            config = {
+              my.home.graphical.enable = true;
+              my.home.laptop.enable = true;
+
+              targets.genericLinux.enable = true;
+              nixpkgs.config.allowUnfree = true;
+            };
+          }
+        ];
+      };
+    };
 
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     devShell.x86_64-linux =
@@ -95,6 +91,7 @@
         buildInputs = with pkgs; [
           colmena
           ssh-to-age
+          home-manager
           sops
           (writeShellScriptBin "setup-age-private-key" ''
             mkdir -p ~/.config/sops/age
