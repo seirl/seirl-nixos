@@ -57,9 +57,9 @@ in
     hardware.opengl.enable = true;
 
     # Configure keymap in X11
-    services.xserver.layout = "us";
-    services.xserver.xkbVariant = "altgr-intl";
-    services.xserver.xkbOptions = "compose:menu,caps:swapescape";
+    services.xserver.xkb.layout = "us";
+    services.xserver.xkb.variant = "altgr-intl";
+    services.xserver.xkb.options = "compose:menu,caps:swapescape";
 
     # dconf for programs that use GSettings.
     programs.dconf.enable = true;
