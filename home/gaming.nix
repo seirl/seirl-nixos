@@ -26,9 +26,9 @@ let
     export WINEPREFIX="${wowWinePrefix}"
     ${pkgs.winetricks}/bin/winetricks dxvk
     mkdir -p "${wowSharedPath}"
-    mkdir -p $( dirname "${wowPath}" )
+    mkdir -p "$( dirname "${wowPath}" )"
     ln -sfn "${wowSharedPath}" "${wowPath}"
-    exec $*
+    exec "$@"
   '');
 
   bnetWineWrapper = (pkgs.writeShellScriptBin "battlenet-wine-wrapper" ''
@@ -40,11 +40,11 @@ let
     ${pkgs.winetricks}/bin/winetricks corefonts
     mkdir -p "${bnetSharedPath}"
     mkdir -p "${wowSharedPath}"
-    mkdir -p $( dirname "${bnetPath}" )
-    mkdir -p $( dirname "${bnetWowPath}" )
+    mkdir -p "$( dirname "${bnetPath}" )"
+    mkdir -p "$( dirname "${bnetWowPath}" )"
     ln -sfn "${bnetSharedPath}" "${bnetPath}"
     ln -sfn "${wowSharedPath}" "${bnetWowPath}"
-    exec $*
+    exec "$@"
   '');
 
   wowStartScript = (pkgs.writeShellScriptBin "wow-start-script" ''
