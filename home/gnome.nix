@@ -54,6 +54,8 @@ in
         move-to-workspace-4 = [ "<Shift><Super>4" ];
         switch-applications = [ "<Super>Tab" ];
         switch-applications-backward = [ "<Shift><Super>Tab" ];
+        switch-input-source = [];
+        switch-input-source-backward = [];
         switch-to-workspace-1 = [ "<Super>1" ];
         switch-to-workspace-2 = [ "<Super>2" ];
         switch-to-workspace-3 = [ "<Super>3" ];
