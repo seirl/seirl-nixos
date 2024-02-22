@@ -54,8 +54,8 @@ in
         move-to-workspace-4 = [ "<Shift><Super>4" ];
         switch-applications = [ "<Super>Tab" ];
         switch-applications-backward = [ "<Shift><Super>Tab" ];
-        switch-input-source = [];
-        switch-input-source-backward = [];
+        switch-input-source = [ ];
+        switch-input-source-backward = [ ];
         switch-to-workspace-1 = [ "<Super>1" ];
         switch-to-workspace-2 = [ "<Super>2" ];
         switch-to-workspace-3 = [ "<Super>3" ];
@@ -106,6 +106,17 @@ in
         command = "${pkgs.rofimoji}/bin/rofimoji --selector ${pkgs.wofi}/bin/wofi";
         name = "rofimoji";
       };
+    };
+
+    # Register ssh-askpass to remember my choice to ignore the annoying
+    # "disable inhibit shortcuts" prompt warning.
+    # https://gitlab.gnome.org/GNOME/seahorse/-/issues/352
+    xdg.desktopEntries.ssh-askpass = {
+      name = "ssh-askpass";
+      genericName = "ssh-askpass";
+      type = "Application";
+      exec = "/usr/bin/ssh-askpass";
+      terminal = false;
     };
   };
 }
