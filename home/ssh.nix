@@ -11,8 +11,8 @@
         extraOptions = {
           AddKeysToAgent = "yes";
           ControlPersist = "yes";
-          ServerAliveInterval = 15;
-          ConnectTimeout = 60;
+          ConnectTimeout = "60";
+          ServerAliveInterval = "15";
         };
       };
     };
