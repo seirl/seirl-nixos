@@ -89,21 +89,26 @@ in
         volume-up = [ "<Super>equal" ];
       };
 
+      # I have to hardcode paths to /usr/bin here to work on non-nixos, because
+      # otherwise it inherits the environment variables such as
+      # GDK_PIXBUF_MODULE_FILE from the wrapped binaries, and those don't work
+      # when the libc version doesn't match.
+
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal" = {
         binding = "<Super>Return";
-        command = "${pkgs.gnome.gnome-terminal}/bin/gnome-terminal";
+        command = "/usr/bin/gnome-terminal";
         name = "gnome-terminal";
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/wofirun" = {
         binding = "<Super>d";
-        command = "${pkgs.wofi}/bin/wofi --show run";
+        command = "/usr/bin/wofi --show run";
         name = "wofi --show run";
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rofimoji" = {
         binding = "<Super>;";
-        command = "${pkgs.rofimoji}/bin/rofimoji --selector ${pkgs.wofi}/bin/wofi";
+        command = "/usr/bin/rofimoji --selector /usr/bin/wofi";
         name = "rofimoji";
       };
     };
