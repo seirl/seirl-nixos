@@ -80,7 +80,6 @@ in
         custom-keybindings = [
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal/"
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/wofirun/"
-          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rofimoji/"
         ];
         help = [ ];
         screensaver = [ "<Super>l" ];
@@ -89,27 +88,21 @@ in
         volume-up = [ "<Super>equal" ];
       };
 
-      # I have to hardcode paths to /usr/bin here to work on non-nixos, because
-      # otherwise it inherits the environment variables such as
+      # I have to use /usr/bin/env here to work on non-nixos, because if I put
+      # the package path directly it inherits the environment variables such as
       # GDK_PIXBUF_MODULE_FILE from the wrapped binaries, and those don't work
       # when the libc version doesn't match.
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal" = {
         binding = "<Super>Return";
-        command = "/usr/bin/gnome-terminal";
+        command = "/usr/bin/env gnome-terminal";
         name = "gnome-terminal";
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/wofirun" = {
         binding = "<Super>d";
-        command = "/usr/bin/wofi --show run";
+        command = "/usr/bin/env wofi --show run";
         name = "wofi --show run";
-      };
-
-      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rofimoji" = {
-        binding = "<Super>;";
-        command = "/usr/bin/rofimoji --selector /usr/bin/wofi";
-        name = "rofimoji";
       };
     };
 
