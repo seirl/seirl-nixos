@@ -40,6 +40,7 @@ in
         switch-to-application-2 = [ ];
         switch-to-application-3 = [ ];
         switch-to-application-4 = [ ];
+        switch-to-application-5 = [ ];
       };
 
       "org/gnome/desktop/wm/keybindings" = {
@@ -52,6 +53,7 @@ in
         move-to-workspace-2 = [ "<Shift><Super>2" ];
         move-to-workspace-3 = [ "<Shift><Super>3" ];
         move-to-workspace-4 = [ "<Shift><Super>4" ];
+        move-to-workspace-5 = [ "<Shift><Super>5" ];
         switch-applications = [ "<Super>Tab" ];
         switch-applications-backward = [ "<Shift><Super>Tab" ];
         switch-input-source = [ ];
@@ -60,6 +62,7 @@ in
         switch-to-workspace-2 = [ "<Super>2" ];
         switch-to-workspace-3 = [ "<Super>3" ];
         switch-to-workspace-4 = [ "<Super>4" ];
+        switch-to-workspace-5 = [ "<Super>5" ];
         switch-windows = [ "<Alt>Tab" ];
         switch-windows-backward = [ "<Shift><Alt>Tab" ];
         toggle-fullscreen = [ "<Super>f" ];
@@ -70,10 +73,20 @@ in
         auto-raise = true;
         focus-mode = "sloppy";
         resize-with-right-button = true;
+        num-workspaces = 5;
       };
 
       "org/gnome/mutter" = {
         workspaces-only-on-primary = false;
+
+        # With dynamic workspaces enabled, changing workspaces on Wayland with
+        # multiple monitors freezes for a few seconds.
+        # https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/6023
+        dynamic-workspaces = false;
+      };
+
+      "org/gnome/shell/app-switcher" = {
+        current-workspace-only = true;
       };
 
       "org/gnome/settings-daemon/plugins/media-keys" = {
