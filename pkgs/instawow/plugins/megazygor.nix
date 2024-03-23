@@ -1,4 +1,4 @@
-{ lib, python3, p7zip, fetchFromBitbucket, fetchPypi, instawow }:
+{ lib, python3, p7zip, unar, fetchFromBitbucket, fetchPypi, instawow }:
 
 let
   mediafire = python3.pkgs.buildPythonPackage rec {
@@ -24,14 +24,20 @@ in
 
 python3.pkgs.buildPythonPackage rec {
   pname = "instawow_megazygor";
-  version = "eec9ba546c79d49b6508b6ba6070192f23eac6d9";
+  version = "18d37b97002be65aef6074f743561082f4386c90";
 
   src = fetchFromBitbucket {
     owner = "serialk";
     repo = "instawow-megazygor";
     rev = version;
-    sha256 = "sha256-lif9hMBrfu4SJoh31D3yQHyOtEny0hj0zxv6e/USoIs=";
+    sha256 = "sha256-LXYWX4ulxZwmMjJFAiW0qKCLk7U/GEMuQe7zNQ605HI=";
   };
+
+  postPatch = ''
+    substituteInPlace instawow_megazygor/archives.py \
+      --replace-fail "LSAR_PATH = 'lsar'" "LSAR_PATH = '${unar}/bin/lsar'" \
+      --replace-fail "UNAR_PATH = 'unar'" "UNAR_PATH = '${unar}/bin/unar'"
+  '';
 
   pythonRemoveDeps = [
     "instawow" # Reverse the dependency
@@ -42,7 +48,6 @@ python3.pkgs.buildPythonPackage rec {
   propagatedBuildInputs = (with python3.pkgs; [
     aiohttp
     mediafire
-    patool
     requests
     six
   ]);
