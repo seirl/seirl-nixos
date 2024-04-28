@@ -10,7 +10,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.nvtop ];
+    environment.systemPackages = [ pkgs.nvtopPackages.nvidia ];
     nixpkgs.config.cudaSupport = cfg.enableCuda;
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
