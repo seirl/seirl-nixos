@@ -2,13 +2,13 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "instawow-tsm";
-  version = "83a315850dad9cbbb62fad75407b34fb30d0efa1";
+  version = "4f5d10c16e4780bd1b8af7a95f22f908e8f6a224";
 
   src = fetchFromGitHub {
     owner = "seirl";
     repo = "instawow-tsm";
     rev = version;
-    sha256 = "sha256-aF+/Z7cvnECYayRvshzLpAQDyiaEtqlImaKulccsT9A=";
+    sha256 = "sha256-gvb074a/+QZVKxZCNWm/Fzov/HYy/NZx5J1nVDBmP5M=";
   };
 
   pythonRemoveDeps = [

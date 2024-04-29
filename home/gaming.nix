@@ -91,7 +91,7 @@ in
       Install.WantedBy = [ "graphical-session.target" ];
       Service = {
         ExecStart = (
-          "${config.programs.instawow.package}/bin/instawow -d tsm run"
+          "${config.programs.instawow.package}/bin/instawow -v plugins tsm run"
         );
         Restart = "on-failure";
         RestartSec = 30;
