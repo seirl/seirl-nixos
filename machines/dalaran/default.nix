@@ -28,6 +28,8 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  services.fwupd.enable = true;
+
   time.timeZone = "Europe/Zurich";
 
   nixpkgs.config.cudaCapabilities = [ "5.2" ];

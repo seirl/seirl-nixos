@@ -64,8 +64,7 @@ in
     };
     sops.secrets."instawow/tsm_credentials" = {
       path = (
-        "${config.xdg.stateHome}/instawow/profiles/__default__/plugins/"
-        + "instawow_tsm/credentials.json"
+        "${config.xdg.configHome}/instawow/plugins/instawow_tsm/credentials.json"
       );
     };
     programs.instawow = {
