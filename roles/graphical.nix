@@ -19,7 +19,7 @@ in
       pcmanfm
       lxmenu-data
       shared-mime-info
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
       xfce.tumbler
 
       google-chrome
@@ -31,7 +31,7 @@ in
       rofimoji
       escrotum
       imgurbash2
-      transmission-qt
+      transmission_4-qt
       virt-manager
 
       aegisub
@@ -54,7 +54,7 @@ in
     services.displayManager.sddm.enable = true;
     services.xserver.windowManager.i3.enable = true;
 
-    hardware.opengl.enable = true;
+    hardware.graphics.enable = true;
 
     # Configure keymap in X11
     services.xserver.xkb.layout = "us";
@@ -68,7 +68,6 @@ in
     services.printing.enable = true;
 
     # Enable sound.
-    sound.enable = true;
     hardware.pulseaudio.enable = true;
     hardware.pulseaudio.support32Bit = true;
 
