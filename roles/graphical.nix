@@ -68,8 +68,14 @@ in
     services.printing.enable = true;
 
     # Enable sound.
-    hardware.pulseaudio.enable = true;
-    hardware.pulseaudio.support32Bit = true;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
 
     # Enable NetworkManager applet
     programs.nm-applet.enable = true;

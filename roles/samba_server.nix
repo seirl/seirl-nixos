@@ -26,16 +26,16 @@ in
     ];
     services.samba = {
       enable = true;
-      extraConfig = ''
-        workgroup = WORKGROUP
-        server string = smbnix
-        netbios name = smbnix
-        hosts allow = 192.168. 127.0.0.1 localhost
-        hosts deny = 0.0.0.0/0
-        guest account = nobody
-        map to guest = bad user
-      '';
-      shares = {
+      settings = {
+        global = {
+            "workgroup" = "WORKGROUP";
+            "server string" = "smbnix";
+            "netbios name" = "smbnix";
+            "hosts allow" = "192.168. 127.0.0.1 localhost";
+            "hosts deny" = "0.0.0.0/0";
+            "guest account" = "nobody";
+            "map to guest" = "bad user";
+        };
         media = {
           public = "yes";
           path = "/srv/data1/seirl/media";

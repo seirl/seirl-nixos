@@ -32,5 +32,6 @@ in
 
   time.timeZone = "Europe/Zurich";
 
+  hardware.nvidia.open = false;
   nixpkgs.config.cudaCapabilities = [ "5.2" ];
 }
