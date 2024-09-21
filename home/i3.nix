@@ -18,6 +18,7 @@ in
 
       config = {
         modifier = "Mod4";
+        defaultWorkspace = "workspace number 1";
         keybindings = lib.mkOptionDefault {
           # Workspace moves
           "${mod}+Ctrl+Left" = "move workspace to output left";
