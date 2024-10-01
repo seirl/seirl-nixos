@@ -102,8 +102,8 @@
         };
       in
       pkgs.mkShell {
-        buildInputs = with pkgs; [
-          colmena
+        packages = with pkgs; [
+          pkgs.colmena
           ssh-to-age
           home-manager
           sops
