@@ -15,5 +15,7 @@ in
     my.home.urxvt.enable = true;
     my.home.xcompose.enable = true;
     my.home.vscode.enable = true;
+
+    services.dunst.enable = true;
   };
 }
