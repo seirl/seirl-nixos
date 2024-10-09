@@ -111,6 +111,10 @@ in
         ${pkgs.wget}/bin/wget -O "$bnet_setup" 'https://downloader.battle.net/download/getInstaller?os=win&installer=Battle.net-Setup.exe'
         ${bnetWineWrapper}/bin/battlenet-wine-wrapper ${winePkg}/bin/wine64 "$bnet_setup"
       '')
+
+      (pkgs.writeShellScriptBin "satisfactory" ''
+        ${lib.getExe pkgs.steam} steam://rungameid/526870
+      '')
     ];
   };
 }
