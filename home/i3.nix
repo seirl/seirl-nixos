@@ -3,6 +3,9 @@
 let
   mod = "Mod4";
   cfg = config.my.home.i3;
+
+  pactl = lib.getExe' pkgs.pulseaudio "pactl";
+  playerctl = lib.getExe pkgs.playerctl;
 in
 {
   options = {
@@ -27,35 +30,35 @@ in
           "${mod}+Ctrl+Right" = "move workspace to output right";
 
           # Volume
-          "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +3% && pkill -SIGUSR1 i3status";
-          "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -3% && pkill -SIGUSR1 i3status";
-          "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -SIGUSR1 i3status";
-          "XF86AudioMicMute" = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -SIGUSR1 i3status";
-          "${mod}+equal" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +3% && pkill -SIGUSR1 i3status";
-          "${mod}+minus" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -3% && pkill -SIGUSR1 i3status";
-          "${mod}+backslash" = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -SIGUSR1 i3status";
+          "XF86AudioRaiseVolume" = "exec --no-startup-id ${pactl} set-sink-volume @DEFAULT_SINK@ +3% && pkill -SIGUSR1 i3status";
+          "XF86AudioLowerVolume" = "exec --no-startup-id ${pactl} set-sink-volume @DEFAULT_SINK@ -3% && pkill -SIGUSR1 i3status";
+          "XF86AudioMute" = "exec --no-startup-id ${pactl} set-sink-mute @DEFAULT_SINK@ toggle && pkill -SIGUSR1 i3status";
+          "XF86AudioMicMute" = "exec --no-startup-id ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle && pkill -SIGUSR1 i3status";
+          "${mod}+equal" = "exec --no-startup-id ${pactl} set-sink-volume @DEFAULT_SINK@ +3% && pkill -SIGUSR1 i3status";
+          "${mod}+minus" = "exec --no-startup-id ${pactl} set-sink-volume @DEFAULT_SINK@ -3% && pkill -SIGUSR1 i3status";
+          "${mod}+backslash" = "exec --no-startup-id ${pactl} set-sink-mute @DEFAULT_SINK@ toggle && pkill -SIGUSR1 i3status";
 
           # Player control with MPRIS D-Bus
-          "XF86AudioPlay" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioStop" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl stop";
-          "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
-          "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPlay" = "exec --no-startup-id ${playerctl} play-pause";
+          "XF86AudioStop" = "exec --no-startup-id ${playerctl} stop";
+          "XF86AudioPrev" = "exec --no-startup-id ${playerctl} previous";
+          "XF86AudioNext" = "exec --no-startup-id ${playerctl} next";
 
           # File manager
-          "${mod}+a" = "exec ``${pkgs.pcmanfm}/bin/pcmanfm \"`${pkgs.xcwd}/bin/xcwd`\"``";
+          "${mod}+a" = "exec ``${lib.getExe pkgs.pcmanfm} \"`${lib.getExe pkgs.xcwd}`\"``";
 
           # Lock & suspend
           "${mod}+o" = "exec --no-startup-id ${pkgs.i3lock}/bin/i3lock -c 000000";
-          "${mod}+Shift+o" = "exec --no-startup-id sudo systemctl suspend & ${pkgs.i3lock}/bin/i3lock -c 000000";
+          "${mod}+Shift+o" = "exec --no-startup-id sudo systemctl suspend & ${lib.getExe pkgs.i3lock} -c 000000";
 
           # Emojis
-          "${mod}+semicolon" = "exec --no-startup-id ${pkgs.rofimoji}/bin/rofimoji";
+          "${mod}+semicolon" = "exec --no-startup-id ${lib.getExe pkgs.rofimoji}";
 
           # Screenshots
-          "${mod}+Print" = "exec --no-startup-id ${pkgs.escrotum}/bin/escrotum -C -s";
+          "${mod}+Print" = "exec --no-startup-id ${lib.getExe pkgs.escrotum} -C -s";
 
           # xcwd terminal
-          "${mod}+Shift+Return" = "exec ``i3-sensible-terminal -cd \"`${pkgs.xcwd}/bin/xcwd`\"``";
+          "${mod}+Shift+Return" = "exec ``${lib.getExe' pkgs.i3 "i3-sensible-terminal"} -cd \"`${lib.getExe pkgs.xcwd}`\"``";
 
           # Remap to vim-like (commented out for now, might bring back later)
           # Focus
@@ -77,7 +80,7 @@ in
 
         bars = [
           {
-            statusCommand = "${pkgs.i3status}/bin/i3status";
+            statusCommand = "${lib.getExe pkgs.i3status}";
             position = "top";
           }
         ];
