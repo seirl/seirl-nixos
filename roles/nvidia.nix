@@ -13,9 +13,13 @@ in
     environment.systemPackages = [ pkgs.nvtopPackages.nvidia ];
     nixpkgs.config.cudaSupport = cfg.enableCuda;
     services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    hardware.nvidia.modesetting.enable = true;
-    hardware.nvidia.forceFullCompositionPipeline = true;
+
+    hardware.nvidia = {
+      open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      forceFullCompositionPipeline = true;
+      modesetting.enable = true;
+    };
 
     nix.settings = {
       substituters = [
