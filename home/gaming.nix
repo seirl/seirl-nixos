@@ -2,10 +2,11 @@
 
 let
   cfg = config.my.home.gaming;
-  winePkg = (pkgs.wineWowPackages.full.override {
-    wineRelease = "staging";
-    mingwSupport = true;
-  });
+  # winePkg = (pkgs.wineWowPackages.full.override {
+  #   wineRelease = "staging";
+  #   mingwSupport = true;
+  # });
+  winePkg = pkgs.proton-ge-bin;
 
   wowSharedPath = "${config.xdg.dataHome}/wineprograms/World of Warcraft";
   wowWinePrefix = "${config.xdg.dataHome}/wineprefixes/wow";
