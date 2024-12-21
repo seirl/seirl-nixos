@@ -12,10 +12,10 @@ in
 
   my.roles.vpn-peer.enable = true;
 
-  my.roles.ecryptfs.enable = true;
   my.roles.gaming.enable = true;
   my.roles.graphical.enable = true;
   my.roles.nvidia.enable = true;
+  hardware.nvidia.open = false;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
