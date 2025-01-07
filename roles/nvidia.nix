@@ -19,6 +19,9 @@ in
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       forceFullCompositionPipeline = true;
       modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      nvidiaSettings = true;
     };
 
     nix.settings = {
