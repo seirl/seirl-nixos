@@ -40,19 +40,23 @@ in
       openFirewall = true;
     };
 
-    # Drawful 2 fix.
+    # Steam games SSL fix.
     #
-    # The game is statically linked with a version of openssl which, for some
-    # reason, cannot use the bundled /etc/ssl/certs/ca-certificates.crt file,
-    # but instead looks up the unbundled and hashed version of the same
-    # certificate. NixOS does not provide this hashed certificate by default,
-    # and there is currently no package that provide them.
-    # We work around this by simply copying the one certificate required by
-    # Drawful 2 from the cacert.unbundled package to the hashed path that the
+    # Some games like Drawful 2 are statically linked with a version of openssl
+    # which, for some reason, cannot use the bundled
+    # /etc/ssl/certs/ca-certificates.crt file, but instead looks up the
+    # unbundled/hashed version of the same certificate. NixOS does not provide
+    # this hashed certificate by default (see discussion in
+    # https://github.com/NixOS/nixpkgs/pull/303265). We work around this by
+    # extracting the cacert.hashed certificates to /etc/ssl/certs, which the
     # game looks up.
-    environment.etc."ssl/certs/f081611a.0" = {
-      source = "${pkgs.cacert.unbundled}/etc/ssl/certs/Go_Daddy_Class_2_CA:0.crt";
-      mode = "0644";
-    };
+    environment.etc = let
+      hashed = "${pkgs.cacert.hashed}/etc/ssl/certs";
+    in lib.mapAttrs' (name: _: {
+      name = "ssl/certs/${name}";
+      value = {
+        source = "${hashed}/${name}";
+      };
+    }) (builtins.readDir hashed);
   };
 }
