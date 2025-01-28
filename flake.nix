@@ -43,7 +43,7 @@
           imports = [
             inputs.home-manager.nixosModules.home-manager
             inputs.sops-nix.nixosModules.sops
-            inputs.nur.nixosModules.nur
+            inputs.nur.modules.nixos.default
           ];
           nixpkgs.overlays = [
             (final: prev: self.packages.x86_64-linux)

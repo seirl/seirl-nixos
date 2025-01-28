@@ -21,7 +21,7 @@ in
 
   environment.systemPackages = with pkgs; [
     anki-bin
-    config.nur.repos.k3a.ib-tws
+    # config.nur.repos.k3a.ib-tws
     # (openai-whisper.override { cudaSupport = true; })
   ];
 
