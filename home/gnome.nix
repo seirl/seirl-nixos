@@ -14,7 +14,7 @@ in
     dconf.enable = true;
     dconf.settings = {
       "org/gnome/desktop/input-sources" = {
-        xkb-options = [ "caps:swapescape" ];
+        xkb-options = [ "caps:swapescape" "compose:menu" ];
         sources = [ (lib.hm.gvariant.mkTuple [ "xkb" "us+altgr-intl" ]) ];
       };
 
@@ -25,6 +25,11 @@ in
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
         enable-hot-corners = "false";
+        clock-format = "24h";
+      };
+
+      "org/gtk/settings/file-chooser" = {
+        clock-format = "24h";
       };
 
       "org/gnome/desktop/peripherals/mouse" = {
