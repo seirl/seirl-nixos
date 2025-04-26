@@ -46,7 +46,9 @@ set noerrorbells "remove terminal bells on error
 
 "Keys & mappings
 let mapleader=" "
-set pastetoggle=<F2>
+if !has('nvim')
+    set pastetoggle=<F2>
+endif
 
 "Abbreviations
 cabbr <expr> %% expand('%:h')
