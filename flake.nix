@@ -76,8 +76,8 @@
       (nixpkgs.lib.attrsets.filterAttrs (n: v: v ? config.system.build.sdImage)
         nixosConfigurations);
 
-    homeConfigurations = {
-      "seirl" = inputs.home-manager.lib.homeManagerConfiguration rec {
+    homeConfigurations = rec {
+      seirlcorp = inputs.home-manager.lib.homeManagerConfiguration rec {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
           {
@@ -85,6 +85,7 @@
             config = {
               my.home.graphical.enable = true;
               my.home.laptop.enable = true;
+              my.home.glinux.enable = true;
 
               targets.genericLinux.enable = true;
               nixpkgs.config.allowUnfree = true;
@@ -92,6 +93,7 @@
           }
         ];
       };
+      "seirl@seirl3" = seirlcorp;
     };
 
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
