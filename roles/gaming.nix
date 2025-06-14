@@ -39,6 +39,8 @@ in
       capSysAdmin = true;
       openFirewall = true;
     };
+    services.avahi.enable = true;
+    services.avahi.publish.userServices = true;
 
     # Steam games SSL fix.
     #
