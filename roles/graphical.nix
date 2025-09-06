@@ -53,6 +53,7 @@ in
 
     services.displayManager.sddm.enable = true;
     services.xserver.windowManager.i3.enable = true;
+    programs.i3lock.enable = true;
 
     hardware.graphics.enable = true;
 
