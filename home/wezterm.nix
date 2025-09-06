@@ -1,50 +1,38 @@
 { config, lib, ... }:
 
 let
-  cfg = config.my.home.alacritty;
+  cfg = config.my.home.wezterm;
 in
 {
   options = {
-    my.home.alacritty.enable = lib.mkEnableOption "Enable alacritty config";
+    my.home.wezterm.enable = lib.mkEnableOption "Enable wezterm config";
   };
 
   config = lib.mkIf cfg.enable {
-    programs.alacritty = {
+    programs.wezterm = {
       enable = true;
-      settings = {
-        font = {
-          normal.family = "DejaVu Sans Mono";
-          size = 8.5;
-        };
+      extraConfig = ''
+        return {
+          font = wezterm.font_with_fallback {
+              "DejaVu Sans Mono",
+              "Noto Color Emoji",
+              "Symbola",
+          },
+          font_size = 9.0,
+          color_scheme = "Tango (terminal.sexy)",
+          enable_tab_bar = false,
+          window_close_confirmation = "NeverPrompt",
+        }
+      '';
 
-        colors = {
-          primary = {
-            foreground = "#ffffff";
-            background = "#000000";
-          };
-          normal = {
-            black = "#2e3436";
-            red = "#cc0000";
-            green = "#4e9a06";
-            yellow = "#c4a000";
-            blue = "#3465a4";
-            magenta = "#75507b";
-            cyan = "#06989a";
-            white = "#d3d7cf";
-          };
-          bright = {
-            black = "#555753";
-            red = "#ef2929";
-            green = "#8ae234";
-            yellow = "#fce94f";
-            blue = "#729fcf";
-            magenta = "#ad7fa8";
-            cyan = "#37e2e2";
-            white = "#eeeeec";
-          };
-        };
-        colors.draw_bold_text_with_bright_colors = true;
-      };
+      # font = {
+      #   size = 8.5;
+      #   name = "DejaVu Sans Mono";
+      # };
+      # theme = "Tango Dark";
+      # settings = {
+      #   confirm_os_window_close = "0";
+      # };
     };
   };
 }
