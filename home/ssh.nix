@@ -3,11 +3,12 @@
 {
   config.programs.ssh = {
     enable = true;
-    controlMaster = "auto";
+    enableDefaultConfig = false;
     includes = [ "config_local" ];
     matchBlocks = {
       all = {
         host = "*";
+        controlMaster = "auto";
         extraOptions = {
           AddKeysToAgent = "yes";
           ControlPersist = "yes";
