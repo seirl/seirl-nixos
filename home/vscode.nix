@@ -11,7 +11,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      userSettings = {
+      profiles.default.userSettings = {
         "keyboard.dispatch" = "keyCode";
         "window.zoomLevel" = -1;
       };
