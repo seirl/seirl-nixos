@@ -13,6 +13,8 @@ let
       requests-toolbelt
       six
     ];
+    pyproject = true;
+    build-system = [ python3.pkgs.setuptools ];
     meta = with lib; {
       description = "Python MediaFire client library";
       homepage = "https://pypi.org/project/mediafire/";
@@ -51,6 +53,9 @@ python3.pkgs.buildPythonPackage rec {
     requests
     six
   ]);
+
+  pyproject = true;
+  build-system = [ python3.pkgs.setuptools ];
 
   meta = with lib; {
     homepage = "https://bitbucket.org/serialk/instawow-megazygor";

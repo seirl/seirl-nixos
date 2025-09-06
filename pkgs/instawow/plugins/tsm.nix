@@ -23,6 +23,9 @@ python3.pkgs.buildPythonPackage rec {
     loguru
   ]);
 
+  pyproject = true;
+  build-system = [ python3.pkgs.setuptools ];
+
   meta = with lib; {
     homepage = "https://github.com/seirl/instawow-tsm";
     description = "Instawow plugin for TradeSkillMaster";
