@@ -43,7 +43,7 @@ in
             white = "#eeeeec";
           };
         };
-        draw_bold_text_with_bright_colors = true;
+        colors.draw_bold_text_with_bright_colors = true;
       };
     };
   };
