@@ -32,4 +32,9 @@ in
   services.fwupd.enable = true;
 
   time.timeZone = "Europe/Zurich";
+
+  services.logind.settings.Login = {
+    HandlePowerKey = "suspend";
+    HandlePowerKeyLongPress = "poweroff";
+  };
 }
