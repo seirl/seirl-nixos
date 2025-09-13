@@ -52,13 +52,17 @@ in
     # https://github.com/NixOS/nixpkgs/pull/303265). We work around this by
     # extracting the cacert.hashed certificates to /etc/ssl/certs, which the
     # game looks up.
-    environment.etc = let
-      hashed = "${pkgs.cacert.hashed}/etc/ssl/certs";
-    in lib.mapAttrs' (name: _: {
-      name = "ssl/certs/${name}";
-      value = {
-        source = "${hashed}/${name}";
-      };
-    }) (builtins.readDir hashed);
+    environment.etc =
+      let
+        hashed = "${pkgs.cacert.hashed}/etc/ssl/certs";
+      in
+      lib.mapAttrs'
+        (name: _: {
+          name = "ssl/certs/${name}";
+          value = {
+            source = "${hashed}/${name}";
+          };
+        })
+        (builtins.readDir hashed);
   };
 }
