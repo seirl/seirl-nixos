@@ -37,4 +37,23 @@ in
     HandlePowerKey = "suspend";
     HandlePowerKeyLongPress = "poweroff";
   };
+
+  services.minecraft-server = {
+    enable = true;
+    eula = true;
+    openFirewall = true;
+    declarative = true;
+    serverProperties = {
+      server-port = 25565;
+      enable-lan-visibility = true;
+      difficulty = "normal";
+      gamemode = "survival";
+      force-gamemode = true;
+      max-players = 5;
+      motd = "Miau!";
+      allow-cheats = false;
+      online-mode = false;
+    };
+    jvmOpts = "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10";
+  };
 }
