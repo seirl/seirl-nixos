@@ -17,5 +17,9 @@ in
     my.home.vscode.enable = true;
 
     services.dunst.enable = true;
+
+    home.sessionVariables = {
+      TERMINAL = "alacritty";
+    };
   };
 }
