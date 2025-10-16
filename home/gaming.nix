@@ -2,11 +2,7 @@
 
 let
   cfg = config.my.home.gaming;
-  # winePkg = (pkgs.wineWowPackages.full.override {
-  #   wineRelease = "staging";
-  #   mingwSupport = true;
-  # });
-  winePkg = pkgs.proton-ge-bin;
+  winePkg = pkgs.wineWowPackages.staging;
 
   wowSharedPath = "${config.xdg.dataHome}/wineprograms/World of Warcraft";
   wowWinePrefix = "${config.xdg.dataHome}/wineprefixes/wow";
@@ -50,7 +46,7 @@ let
 
   wowStartScript = (pkgs.writeShellScriptBin "wow-start-script" ''
     ${wowBackupScript}
-    ${winePkg}/bin/wine64 "${wowPath}/_${wowFlavor}_/Wow.exe"
+    ${winePkg}/bin/wine "${wowPath}/_${wowFlavor}_/Wow.exe"
     ${wowBackupScript}
   '');
 in
@@ -104,13 +100,13 @@ in
       '')
 
       (pkgs.writeShellScriptBin "battlenet" ''
-        ${bnetWineWrapper}/bin/battlenet-wine-wrapper ${winePkg}/bin/wine64 "${bnetPath}/Battle.net.exe"
+        ${bnetWineWrapper}/bin/battlenet-wine-wrapper ${winePkg}/bin/wine "${bnetPath}/Battle.net.exe"
       '')
 
       (pkgs.writeShellScriptBin "battlenet-setup" ''
         bnet_setup=$( mktemp --tmpdir Battle.net-Setup.XXXXXXXXXX.exe )
         ${pkgs.wget}/bin/wget -O "$bnet_setup" 'https://downloader.battle.net/download/getInstaller?os=win&installer=Battle.net-Setup.exe'
-        ${bnetWineWrapper}/bin/battlenet-wine-wrapper ${winePkg}/bin/wine64 "$bnet_setup"
+        ${bnetWineWrapper}/bin/battlenet-wine-wrapper ${winePkg}/bin/wine "$bnet_setup"
       '')
 
       (pkgs.writeShellScriptBin "satisfactory" ''

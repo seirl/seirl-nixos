@@ -10,10 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      (wineWowPackages.full.override {
-        wineRelease = "staging";
-        mingwSupport = true;
-      })
+      pkgs.wineWowPackages.staging
       winetricks
     ];
 
