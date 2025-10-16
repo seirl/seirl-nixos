@@ -40,8 +40,10 @@ let
     mkdir -p "$( dirname "${bnetPath}" )"
     mkdir -p "$( dirname "${bnetWowPath}" )"
     ln -sfn "${bnetSharedPath}" "${bnetPath}"
-    ln -sfn "${wowSharedPath}" "${bnetWowPath}"
+    mkdir -p "${bnetWowPath}"
+    ${pkgs.bindfs}/bin/bindfs --no-allow-other "${wowSharedPath}" "${bnetWowPath}"
     exec "$@"
+    fusermount -u "${bnetWowPath}"
   '');
 
   wowStartScript = (pkgs.writeShellScriptBin "wow-start-script" ''
