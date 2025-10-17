@@ -49,8 +49,8 @@ let
 
   wowStartScript = (pkgs.writeShellScriptBin "wow-start-script" ''
     ${wowBackupScript}
+    trap '${wowBackupScript}' EXIT INT TERM
     ${winePkg}/bin/wine "${wowPath}/_${wowFlavor}_/Wow.exe"
-    ${wowBackupScript}
   '');
 in
 {
