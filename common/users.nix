@@ -36,8 +36,8 @@ rec {
       my.home
     ];
 
-    # TODO: make that automatic for all users.
     config = {
+      home.stateVersion = config.system.stateVersion;
       my.home.gaming.enable = config.my.roles.gaming.enable;
       my.home.graphical.enable = config.my.roles.graphical.enable;
       my.home.laptop.enable = config.my.roles.laptop.enable;

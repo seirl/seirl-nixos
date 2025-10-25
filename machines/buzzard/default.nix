@@ -9,6 +9,8 @@ in
     ./hardware.nix
   ];
 
+  system.stateVersion = "22.11";
+
   nixpkgs.config.allowUnsupportedSystem = true;
   nixpkgs.hostPlatform.system = "armv6l-linux";
   nixpkgs.buildPlatform.system = "x86_64-linux";

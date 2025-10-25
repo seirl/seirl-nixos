@@ -3,7 +3,6 @@
 {
   home.username = "seirl";
   home.homeDirectory = "/home/seirl";
-  home.stateVersion = "22.11";
   programs.home-manager.enable = true;
 
   imports = [

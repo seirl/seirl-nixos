@@ -10,6 +10,8 @@ in
     ./network.nix
   ];
 
+  system.stateVersion = "22.11";
+
   my.roles.vpn-peer.enable = true;
 
   my.roles.nginx.enable = true;

@@ -11,6 +11,8 @@ in
     ./printer.nix
   ];
 
+  system.stateVersion = "25.05";
+
   my.roles.vpn-peer.enable = true;
 
   my.roles.gaming.enable = true;

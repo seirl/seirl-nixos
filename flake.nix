@@ -64,8 +64,6 @@
 
           home-manager.useUserPackages = true;
           home-manager.useGlobalPkgs = true;
-
-          system.stateVersion = "22.11";
         };
       } // machines;
 
