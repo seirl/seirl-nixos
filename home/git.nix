@@ -3,14 +3,15 @@
 {
   config.programs.git = {
     enable = true;
-    userName = "Antoine Pietri";
-    userEmail = "antoine.pietri1@gmail.com";
 
-    aliases = {
-      graph = "log --all --graph --decorate --abbrev-commit --pretty=oneline";
-    };
+    settings = {
+      user.name = "Antoine Pietri";
+      user.email = "antoine.pietri1@gmail.com";
 
-    extraConfig = {
+      aliases = {
+        graph = "log --all --graph --decorate --abbrev-commit --pretty=oneline";
+      };
+
       pull.rebase = true;
       push.followTags = true;
       merge.ff = "only";
