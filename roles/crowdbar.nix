@@ -3,6 +3,10 @@
 let
   cfg = config.my.roles.crowdbar;
   crowdbarPort = 8071;
+  pythonEnv = pkgs.python3.withPackages (p: [
+    p.gunicorn
+    pkgs.crowdbar
+  ]);
 in
 {
   options = {
@@ -27,7 +31,7 @@ in
       serviceConfig = {
         DynamicUser = true;
         ExecStart = lib.concatStringsSep " " [
-          "${pkgs.crowdbar.dependencyEnv}/bin/gunicorn"
+          "${pythonEnv}/bin/gunicorn"
           "--workers ${toString cfg.workers}"
           "-b 127.0.0.1:${toString crowdbarPort}"
           "--worker-class aiohttp.GunicornWebWorker"

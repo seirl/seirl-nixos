@@ -2,7 +2,7 @@
 
 rec {
   badeconomics-ri-notify-bot = pkgs.callPackage ./badeconomics-ri-notify-bot.nix { };
-  crowdbar = pkgs.callPackage ./crowdbar.nix { inherit poetry2nix; };
+  crowdbar = pkgs.callPackage ./crowdbar.nix { };
   epiquote = pkgs.callPackage ./epiquote.nix { inherit poetry2nix; };
   instawow = pkgs.callPackage ./instawow { };
   instawowPlugins = {

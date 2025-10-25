@@ -1,16 +1,24 @@
-{ lib, python3, poetry2nix, fetchFromGitHub }:
+{ lib, python3, fetchFromGitHub }:
 
-poetry2nix.mkPoetryApplication {
-  projectDir = fetchFromGitHub {
+python3.pkgs.buildPythonApplication rec {
+  pname = "crowdbar";
+  version = "f2c481e1381346c4611d9e36b1dd1d404a21ffca";
+  pyproject = true;
+
+  src = fetchFromGitHub {
     owner = "seirl";
     repo = "crowdbar";
-    rev = "847503d9eb68cd7d8ebf65de305678087682b4f2";
-    sha256 = "sha256-GbkveS102BD8+XoFm6VatafwZy60WezkdxD3Oa3C+H4=";
+    rev = "${version}";
+    sha256 = "sha256-otwvN5QYsSQDat2dDxIzYwLToq6+T8DMKrEn8fJtqU4=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
-    setuptools
+    aiohttp
+    babel
     gunicorn
+    jinja2
+    lxml
+    setuptools
   ];
 
   meta = with lib; {
