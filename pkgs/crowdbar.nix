@@ -1,15 +1,15 @@
 { lib, python3, fetchFromGitHub }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonPackage rec {
   pname = "crowdbar";
-  version = "f2c481e1381346c4611d9e36b1dd1d404a21ffca";
+  version = "141346e12efa48fa0153ccdce43525d79cec0b53";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "seirl";
     repo = "crowdbar";
     rev = "${version}";
-    sha256 = "sha256-otwvN5QYsSQDat2dDxIzYwLToq6+T8DMKrEn8fJtqU4=";
+    sha256 = "sha256-8WARWPX6biag2Q9flsbeJn/O49C3f4UOL40lDy7JUNs=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
