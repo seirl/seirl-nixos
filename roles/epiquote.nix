@@ -89,13 +89,11 @@ in
 
       services.postgresql = {
         enable = true;
-        ensureDatabases = [ "epiquote" ];
+        ensureDatabases = ["epiquote"];
         ensureUsers = [
           {
             name = "epiquote";
-            ensurePermissions = {
-              "DATABASE epiquote" = "ALL PRIVILEGES";
-            };
+            ensureDBOwnership = true;
           }
         ];
       };
