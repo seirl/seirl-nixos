@@ -24,12 +24,10 @@ in
 
   config =
     let
-      epiquotePkg = pkgs.epiquote;
-      epiquoteEnv = pkgs.python3.withPackages (ps: [
-        epiquotePkg
-        ps.gunicorn
-        ps.ipython
-      ]);
+      epiquotePkg = pkgs.epiquote.overrideAttrs (old: {
+        extras = [ "prod" ];
+      });
+      epiquoteEnv = pkgs.epiquote.dependencyEnv;
       epiquoteSettings = {
         epiquote = {
           prod = true;
@@ -89,7 +87,7 @@ in
 
       services.postgresql = {
         enable = true;
-        ensureDatabases = ["epiquote"];
+        ensureDatabases = [ "epiquote" ];
         ensureUsers = [
           {
             name = "epiquote";
