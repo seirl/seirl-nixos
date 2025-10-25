@@ -43,7 +43,7 @@ let
     mkdir -p "${bnetWowPath}"
     mountpoint -q "${bnetWowPath}" ||
         ${pkgs.bindfs}/bin/bindfs --no-allow-other "${wowSharedPath}" "${bnetWowPath}"
-    trap 'fusermount -u "${bnetWowPath}"' EXIT INT TERM
+    trap 'sleep 2 && fusermount -u "${bnetWowPath}"' EXIT INT TERM
     command "$@"
   '');
 
