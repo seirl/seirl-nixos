@@ -59,4 +59,9 @@
     package = pkgs.mlocate;
     interval = "hourly";
   };
+
+  # MDMonitor fix
+  boot.swraid.mdadmConf = ''
+    MAILADDR root
+  '';
 }

@@ -10,6 +10,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.swraid.enable = true;
 
   fileSystems."/" =
     {
@@ -27,6 +28,8 @@
     {
       device = "/dev/disk/by-uuid/2abcc000-d27e-4d30-8118-ae4aa178419a";
       fsType = "ext4";
+      neededForBoot = false;
+      options = [ "nofail" ];
     };
 
   swapDevices = [ ];
