@@ -25,6 +25,7 @@ in
   config = lib.mkIf cfg.enable {
     services.transmission = {
       enable = true;
+      package = pkgs.transmission_4;
       settings = {
         rpc-enabled = true;
         rpc-port = transmissionRpcPort;
