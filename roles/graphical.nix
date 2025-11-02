@@ -83,5 +83,8 @@ in
 
     # GVFS to mount MTP devices
     services.gvfs.enable = true;
+
+    # Enable autorandr.
+    services.autorandr.enable = true;
   };
 }

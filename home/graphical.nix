@@ -18,6 +18,8 @@ in
 
     services.dunst.enable = true;
 
+    services.autorandr.enable = true;
+
     home.sessionVariables = {
       TERMINAL = "alacritty";
     };
