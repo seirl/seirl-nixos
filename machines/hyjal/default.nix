@@ -52,6 +52,15 @@ in
     port = 9002;
   };
 
+  services.nginx.virtualHosts."ytkara.koin.fr" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "http://localhost:8438";
+      proxyWebsockets = true;
+    };
+  };
+
   deployment.targetHost = "hyjal.koin.fr";
 
   boot.loader.grub.enable = true;
