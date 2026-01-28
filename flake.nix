@@ -84,6 +84,7 @@
               my.home.graphical.enable = true;
               my.home.laptop.enable = true;
               my.home.glinux.enable = true;
+              home.stateVersion = "25.05";
 
               targets.genericLinux.enable = true;
               nixpkgs.config.allowUnfree = true;
