@@ -21,11 +21,21 @@ in
     ];
 
     home.file."${backupConfigFile}".text = ''
-      media/*
-      Downloads/*.mkv
-      Downloads/*.avi
-      Downloads/*.mp4
-      Downloads/*.iso
+      .local/share/flatpak
+      .npm
+      .venv
+      .cache
+      .local/share/Trash
+      Downloads/**.avi
+      Downloads/**.iso
+      Downloads/**.mkv
+      Downloads/**.mp4
+      Downloads/**.srt
+      Downloads/**.vtt
+      media
+      node_modules
+      snap
+      .config/google-chrome
     '';
 
     programs.zsh.initExtra = ''
