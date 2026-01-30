@@ -18,7 +18,7 @@ in
 
     services.dunst.enable = true;
 
-    services.autorandr.enable = true;
+    services.autorandr.enable = lib.mkDefault true;
 
     home.sessionVariables = {
       TERMINAL = "alacritty";

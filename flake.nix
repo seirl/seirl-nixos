@@ -85,6 +85,7 @@
               my.home.laptop.enable = true;
               my.home.glinux.enable = true;
               home.stateVersion = "25.05";
+              services.autorandr.enable = false;
 
               targets.genericLinux.enable = true;
               nixpkgs.config.allowUnfree = true;
@@ -92,7 +93,7 @@
           }
         ];
       };
-      "seirl@seirl3" = seirlcorp;
+      "seirl@seirl.roam.corp.google.com" = seirlcorp;
     };
 
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;

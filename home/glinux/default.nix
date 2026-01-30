@@ -14,9 +14,14 @@ in
     home.packages = [
       (pkgs.writeShellScriptBin "glinux-seirl-thinkpad-bios-config" ''
         sudo biosmgr set \
-            FnCtrlKeySwap Enable \
+            FnCtrlKeySwap Disable \
             FnKeyAsPrimary Enable \
-            SleepState Linux \
+      '')
+      (pkgs.writeShellScriptBin "glinux-seirl-setup" ''
+        sudo apt install autossh wofi git neovim nix feh eog evince
+        sudo tee -a /etc/nix/nix.conf <<< 'experimental-features = nix-command flakes'
+        sudo usermod -a -G nix-users $USER
+        glinux-seirl-thinkpad-bios-config
       '')
     ];
 
