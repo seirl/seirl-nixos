@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 
-sudo apt install autossh wofi git neovim nix feh eog evince roadwarrior
+sudo apt install \
+    autossh \
+    eog \
+    evince \
+    feh \
+    gimp \
+    git \
+    neovim \
+    nix \
+    python3-venv \
+    roadwarrior \
+    wireguard-tools \
+    wofi \
+
 
 sudo tee /etc/nix/nix.conf <<EOF
 sandbox = true
