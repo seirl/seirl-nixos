@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+sudo apt install autossh wofi git neovim nix feh eog evince roadwarrior
+
+sudo tee /etc/nix/nix.conf <<EOF
+sandbox = true
+experimental-features = nix-command flakes
+EOF
+sudo usermod -a -G nix-users $USER
+
+sudo biosmgr set \
+    FnCtrlKeySwap Disable \
+    FnKeyAsPrimary Enable \

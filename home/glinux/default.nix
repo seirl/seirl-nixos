@@ -12,17 +12,8 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      (pkgs.writeShellScriptBin "glinux-seirl-thinkpad-bios-config" ''
-        sudo biosmgr set \
-            FnCtrlKeySwap Disable \
-            FnKeyAsPrimary Enable \
-      '')
-      (pkgs.writeShellScriptBin "glinux-seirl-setup" ''
-        sudo apt install autossh wofi git neovim nix feh eog evince
-        sudo tee -a /etc/nix/nix.conf <<< 'experimental-features = nix-command flakes'
-        sudo usermod -a -G nix-users $USER
-        glinux-seirl-thinkpad-bios-config
-      '')
+      (pkgs.writeScriptBin "glinux-seirl-laptop-setup"
+        (builtins.readFile ./glinux-seirl-laptop-setup))
     ];
 
     home.file."${backupConfigFile}".text = ''
@@ -44,14 +35,15 @@ in
     '';
 
     programs.zsh.initExtra = ''
-        for file in \
-          /etc/bash_completion.d/p4 \
-          /etc/bash_completion.d/g4d \
-          /etc/bash_completion.d/flex.par \
-          /etc/bash_completion.d/hgd \
-        ; do
-            test -f "$file" && source "$file"
-        done
+      for file in \
+        /etc/bash_completion.d/p4 \
+        /etc/bash_completion.d/g4d \
+        /etc/bash_completion.d/flex.par \
+        /etc/bash_completion.d/hgd \
+        /etc/bash_completion.d/jjd \
+      ; do
+          test -f "$file" && source "$file"
+      done
     '';
   };
 }
