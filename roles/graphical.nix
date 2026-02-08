@@ -20,7 +20,7 @@ in
       lxmenu-data
       shared-mime-info
       adwaita-icon-theme
-      xfce.tumbler
+      tumbler
 
       google-chrome
       firefox
