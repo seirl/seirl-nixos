@@ -19,6 +19,7 @@
     ./laptop.nix
     ./mercurial.nix
     ./nvim
+    ./rclone.nix
     ./ssh.nix
     ./tmux.nix
     ./urxvt
