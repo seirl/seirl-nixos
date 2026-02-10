@@ -94,6 +94,25 @@
         ];
       };
       "seirl@seirl.roam.corp.google.com" = seirlcorp;
+
+      seirlcloudtop = inputs.home-manager.lib.homeManagerConfiguration rec {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [
+          {
+            imports = [ ./home inputs.sops-nix.homeManagerModules.sops ];
+            config = {
+              home.homeDirectory = inputs.nixpkgs.lib.mkForce "/usr/local/google/home/seirl";
+              my.home.glinux.enable = true;
+              home.stateVersion = "25.05";
+
+              targets.genericLinux.enable = true;
+              nixpkgs.config.allowUnfree = true;
+              programs.mercurial.enable = inputs.nixpkgs.lib.mkForce false;
+            };
+          }
+        ];
+      };
+      "seirl@seirl.c.googlers.com" = seirlcloudtop;
     };
 
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
