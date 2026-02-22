@@ -13,8 +13,19 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    poetry2nix = {
-      url = "github:nix-community/poetry2nix";
+    pyproject-nix = {
+      url = "github:pyproject-nix/pyproject.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.uv2nix.follows = "uv2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur = {
@@ -25,7 +36,9 @@
     # Custom packages
     packages.x86_64-linux = import ./pkgs rec {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      poetry2nix = inputs.poetry2nix.lib.mkPoetry2Nix { inherit pkgs; };
+      uv2nix = inputs.uv2nix;
+      pyproject-nix = inputs.pyproject-nix;
+      pyproject-build-systems = inputs.pyproject-build-systems;
     };
 
     # Colmena hive output

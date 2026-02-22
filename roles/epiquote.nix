@@ -24,10 +24,8 @@ in
 
   config =
     let
-      epiquotePkg = pkgs.epiquote.overrideAttrs (old: {
-        extras = [ "prod" ];
-      });
-      epiquoteEnv = pkgs.epiquote.dependencyEnv;
+      epiquotePkg = pkgs.epiquote;
+
       epiquoteSettings = {
         epiquote = {
           prod = true;
@@ -43,13 +41,15 @@ in
           enable = false;
         };
       };
+
       epiquoteSettingsPath = pkgs.writeText "settings.conf"
         (lib.generators.toINI { } epiquoteSettings);
+
       epiquoteManage = pkgs.writeShellScriptBin "epiquote-manage" ''
         export DJANGO_SETTINGS_MODULE=epiquote.settings
         export EPIQUOTE_SETTINGS_PATH=${epiquoteSettingsPath}
         export EPIQUOTE_CREDS_PATH=${config.sops.secrets."epiquote/creds".path}
-        exec ${epiquoteEnv}/bin/django-admin $*
+        exec ${epiquotePkg}/bin/django-admin "$@"
       '';
     in
     lib.mkIf cfg.enable {
@@ -68,10 +68,11 @@ in
           User = "epiquote";
           LoadCredential =
             "creds.conf:${config.sops.secrets."epiquote/creds".path}";
+
           ExecStartPre =
-            "${epiquoteEnv}/bin/django-admin migrate";
+            "${epiquotePkg}/bin/django-admin migrate";
           ExecStart = lib.concatStringsSep " " [
-            "${epiquoteEnv}/bin/gunicorn"
+            "${epiquotePkg}/bin/gunicorn"
             "--workers ${toString cfg.workers}"
             "-b 127.0.0.1:${toString epiquotePort}"
             "epiquote.wsgi:application"

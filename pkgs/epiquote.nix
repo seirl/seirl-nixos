@@ -1,47 +1,78 @@
-{ lib, postgresql, python311, poetry2nix, fetchFromGitHub }:
+{ pkgs
+, lib
+, fetchFromGitHub
+, uv2nix
+, pyproject-nix
+, pyproject-build-systems
+, ...
+}:
 
-poetry2nix.mkPoetryApplication {
-  projectDir = fetchFromGitHub {
+let
+  src = fetchFromGitHub {
     owner = "seirl";
     repo = "epiquote";
-    rev = "69c180346429b861b190f53d56503da0503d1c6a";
-    sha256 = "sha256-Zph7HA/qF+y60lM6X0FQp2m+Fb5KIIZXQQ7GmuQaVuU=";
+    rev = "3fce7d533d683f35ecde97adbc76766904d707c1";
+    sha256 = "sha256-XeHEAbkGL5mfrWYWq1Rd6sdq6OGVffQ8wmo4Zuo5p98=";
   };
 
-  python = python311;
+  workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = src; };
+  overlay = workspace.mkPyprojectOverlay { sourcePreference = "wheel"; };
 
-  overrides = poetry2nix.defaultPoetryOverrides.extend (self: super: {
-    psycopg-c = super.psycopg-c.overridePythonAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
-        postgresql.pg_config
-      ];
+  pyprojectOverrides = final: prev: {
+    psycopg2-binary = prev.psycopg2-binary.overrideAttrs (old: {
+      nativeBuildInputs =
+        (old.nativeBuildInputs or [ ]) ++ [ pkgs.postgresql.pg_config ];
     });
-    psycopg2-binary = super.psycopg2-binary.overridePythonAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
-        postgresql.pg_config
-      ];
+    django-bootstrap-form = prev.django-bootstrap-form.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or [ ]) ++ [ final.setuptools ];
     });
-    matplotlib = super.matplotlib.overridePythonAttrs (old: {
-      buildInputs = (old.buildInputs or [ ]) ++ [ super.flit-core ];
-    });
-    matplotlib-inline = super.matplotlib-inline.overridePythonAttrs (old: {
-      buildInputs = (old.buildInputs or [ ]) ++ [ super.flit-core ];
-    });
-    ipython-pygments-lexers = super.ipython-pygments-lexers.overridePythonAttrs (old: {
-      buildInputs = (old.buildInputs or [ ]) ++ [ super.flit-core ];
-    });
-  });
+  };
 
-  postInstall = ''
-    export DJANGO_SETTINGS_MODULE="epiquote.settings"
-    mkdir -p $out/static
-    cat <<EOF > settings.ini
-    [epiquote]
+  pythonSet = (pkgs.callPackage pyproject-nix.build.packages {
+    python = pkgs.python3;
+  }).overrideScope (
+    lib.composeManyExtensions [
+      pyproject-build-systems.overlays.default
+      overlay
+      pyprojectOverrides
+    ]
+  );
+
+  epiquote-env = pythonSet.mkVirtualEnv "epiquote-env" {
+    epiquote = [ "prod" ];
+  };
+
+  epiquote-statics = pkgs.stdenv.mkDerivation {
+    pname = "epiquote-statics";
+    version = "0.0.0";
+    inherit src;
+
+    nativeBuildInputs = [ epiquote-env ];
+
+    buildPhase = ''
+      # Output statics directly into $out
+      mkdir -p $out/static
+
+      cat <<EOF > build_settings.ini
+      [epiquote]
       static_root = $out/static
-    EOF
-    export EPIQUOTE_SETTINGS_PATH=./settings.ini
-    python3 ./manage.py collectstatic --noinput
-  '';
+      EOF
+      export EPIQUOTE_SETTINGS_PATH=$(pwd)/build_settings.ini
+
+      python manage.py collectstatic --noinput
+    '';
+
+    installPhase = "true";
+  };
+
+in
+pkgs.symlinkJoin {
+  name = "epiquote";
+
+  paths = [
+    epiquote-env
+    epiquote-statics
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/seirl/epiquote";
