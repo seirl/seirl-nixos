@@ -2,7 +2,7 @@
 
 let
   cfg = config.my.home.gaming;
-  winePkg = pkgs.wineWowPackages.staging;
+  winePkg = pkgs.wineWow64Packages.staging;
 
   wowSharedPath = "${config.xdg.dataHome}/wineprograms/World of Warcraft";
   wowWinePrefix = "${config.xdg.dataHome}/wineprefixes/wow";

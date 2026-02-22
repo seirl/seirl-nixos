@@ -13,8 +13,8 @@ in
       i3
       rxvt-unicode
       pavucontrol
-      xorg.xkill
-      xorg.xev
+      xkill
+      xev
 
       pcmanfm
       lxmenu-data
