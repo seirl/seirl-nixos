@@ -4,7 +4,8 @@
   imports = [
     ./ale.nix
     ./lualine.nix
-    ./ultisnips.nix
+    # Broken, needs to be replaced by something else with better nvim compat
+    # ./ultisnips.nix
   ];
 
   config.programs.neovim.plugins = [
