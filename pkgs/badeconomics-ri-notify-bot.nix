@@ -8,8 +8,8 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "reddit-economics";
     repo = "ri-notify-bot";
-    rev = "c8d221549775891c71eb1b0cc836b95deba80708";
-    sha256 = "sha256-RlDydGXpp8B3qQImtbNdK0VZclCDgDOZMd7+1HSeAyU=";
+    rev = "5c7f51b475a95b2d4a12092185df3d009d8f4ca7";
+    sha256 = "sha256-7SAaS/oXfTqSe81bqA9bC8cVwTiw2wVTR633UDcutDw=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
