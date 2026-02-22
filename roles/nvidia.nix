@@ -18,8 +18,6 @@ in
 
     hardware.nvidia = {
       open = lib.mkDefault true;
-      # https://github.com/NixOS/nixpkgs/issues/467814
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
       forceFullCompositionPipeline = true;
       modesetting.enable = true;
       powerManagement.enable = true;
