@@ -12,8 +12,8 @@ let
   src = fetchFromGitHub {
     owner = "seirl";
     repo = "epiquote";
-    rev = "908bc9c1b56f089deccca87c2924db4c04fefcbd";
-    sha256 = "sha256-49epRkI6jEZ9HJ/kbn7XShgcVPLbivDuA0DqEU3W5Io=";
+    rev = "3a66d3bad46eb991acd4431236a9c3ef6a5e9d2d";
+    sha256 = "sha256-1SLiVv7OwX01EAUa54OxAAmlnshvQ3fKEJ0eiRHk2LI=";
   };
 
   workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = src; };
@@ -69,10 +69,12 @@ let
     pname = "epiquote-tests";
     inherit version src;
     nativeBuildInputs = [ epiquote-env ];
-    buildPhase = ''
-      mkdir -p $out
-      python manage.py test -v 2
+    dontBuild = true;
+    doCheck = true;
+    checkPhase = ''
+      python manage.py test -v 1
     '';
+    installPhase = "mkdir -p $out";
   };
 
 in
