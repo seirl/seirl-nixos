@@ -24,6 +24,7 @@
     gnumake
     jq
     colmena
+    nix-update
   ];
 
   boot.kernelPackages = pkgs.linuxPackages;
