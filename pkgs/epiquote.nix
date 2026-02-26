@@ -65,6 +65,16 @@ let
     installPhase = "true";
   };
 
+  epiquote-tests = pkgs.stdenv.mkDerivation {
+    pname = "epiquote-tests";
+    inherit version src;
+    nativeBuildInputs = [ epiquote-env ];
+    buildPhase = ''
+      mkdir -p $out
+      python manage.py test -v 2
+    '';
+  };
+
 in
 pkgs.symlinkJoin {
   name = "epiquote";
@@ -74,10 +84,11 @@ pkgs.symlinkJoin {
   paths = [
     epiquote-env
     epiquote-statics
+    epiquote-tests
   ];
 
   passthru = {
-    inherit epiquote-env epiquote-statics;
+    inherit epiquote-env epiquote-statics epiquote-tests;
   };
 
   meta = with lib; {
