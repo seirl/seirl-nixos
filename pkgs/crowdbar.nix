@@ -2,13 +2,13 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "crowdbar";
-  version = "141346e12efa48fa0153ccdce43525d79cec0b53";
+  version = "0-unstable-2025-10-25";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "seirl";
     repo = "crowdbar";
-    rev = "${version}";
+    rev = "141346e12efa48fa0153ccdce43525d79cec0b53";
     sha256 = "sha256-8WARWPX6biag2Q9flsbeJn/O49C3f4UOL40lDy7JUNs=";
   };
 

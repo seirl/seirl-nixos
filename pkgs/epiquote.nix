@@ -8,11 +8,12 @@
 }:
 
 let
+  version = "0-unstable-2026-02-26";
   src = fetchFromGitHub {
     owner = "seirl";
     repo = "epiquote";
-    rev = "3fce7d533d683f35ecde97adbc76766904d707c1";
-    sha256 = "sha256-XeHEAbkGL5mfrWYWq1Rd6sdq6OGVffQ8wmo4Zuo5p98=";
+    rev = "67b95070c272a9301cecb895bf6bfa57c2faa6ca";
+    sha256 = "sha256-EgTPRl7BG9zMK5aC0IkOKeJRt8LFIGV3fNAbHkwm+wE=";
   };
 
   workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = src; };
@@ -44,8 +45,7 @@ let
 
   epiquote-statics = pkgs.stdenv.mkDerivation {
     pname = "epiquote-statics";
-    version = "0.0.0";
-    inherit src;
+    inherit version src;
 
     nativeBuildInputs = [ epiquote-env ];
 
@@ -68,11 +68,17 @@ let
 in
 pkgs.symlinkJoin {
   name = "epiquote";
+  pname = "epiquote";
+  inherit version src;
 
   paths = [
     epiquote-env
     epiquote-statics
   ];
+
+  passthru = {
+    inherit epiquote-env epiquote-statics;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/seirl/epiquote";

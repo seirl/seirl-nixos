@@ -2,12 +2,12 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "instawow-tsm";
-  version = "be164bb322e5e283dee6bdfa268a0a749217126a";
+  version = "0-unstable-2025-10-17";
 
   src = fetchFromGitHub {
     owner = "seirl";
     repo = "instawow-tsm";
-    rev = version;
+    rev = "be164bb322e5e283dee6bdfa268a0a749217126a";
     sha256 = "sha256-EOXcy0ovvZPm5nO9v9r/lV/Kx19LNmNmLAVnOb/0Bp4=";
   };
 

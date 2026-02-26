@@ -26,12 +26,12 @@ in
 
 python3.pkgs.buildPythonPackage rec {
   pname = "instawow_megazygor";
-  version = "e92119e32fccbcebdfc023dbb34b2508ce9cdc90";
+  version = "0";
 
   src = fetchFromBitbucket {
     owner = "serialk";
     repo = "instawow-megazygor";
-    rev = version;
+    rev = "e92119e32fccbcebdfc023dbb34b2508ce9cdc90";
     sha256 = "sha256-dYnse9fzSZz6RjSjV08wBdoRw80VdwKSC3fWiN9O2wA=";
   };
 
