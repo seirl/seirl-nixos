@@ -12,8 +12,8 @@ let
   src = fetchFromGitHub {
     owner = "seirl";
     repo = "epiquote";
-    rev = "67b95070c272a9301cecb895bf6bfa57c2faa6ca";
-    sha256 = "sha256-EgTPRl7BG9zMK5aC0IkOKeJRt8LFIGV3fNAbHkwm+wE=";
+    rev = "908bc9c1b56f089deccca87c2924db4c04fefcbd";
+    sha256 = "sha256-49epRkI6jEZ9HJ/kbn7XShgcVPLbivDuA0DqEU3W5Io=";
   };
 
   workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = src; };
