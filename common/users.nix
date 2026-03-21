@@ -6,6 +6,7 @@ in
 rec {
   users.users.seirl = {
     isNormalUser = true;
+    linger = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "mlocate" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [

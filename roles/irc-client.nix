@@ -40,22 +40,19 @@ in
       })
     ];
 
-    # TODO: Move to user service, this is horrible.
-    systemd.services = builtins.listToAttrs (lib.forEach cfg.users (user: {
-      name = "weechat-${user.name}";
-      value = {
-        serviceConfig = {
-          User = user.name;
-          Group = user.group;
-          Environment = [ "TMUX_TMPDIR=/run/user/1000" ]; # aaaaa
-          Type = "forking";
-          ExecStart = "${pkgs.tmux}/bin/tmux -2 new-session -d -s irc ${pkgs.weechat}/bin/weechat --upgrade \\; set status off";
-          ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t irc";
-        };
-        wantedBy = [ "multi-user.target" ];
-        wants = [ "network.target" ];
+    systemd.user.services.weechat = {
+      enable = true;
+      unitConfig.ConditionUser =
+        lib.strings.concatMapStringsSep "|" (u: u.name) cfg.users;
+      serviceConfig = {
+        Type = "forking";
+        Environment = [ "TMUX_TMPDIR=%t" ];
+        ExecStart = "${pkgs.tmux}/bin/tmux -2 new-session -d -s irc ${pkgs.weechat}/bin/weechat --upgrade \\; set status off";
+        ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t irc";
       };
-    }));
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network.target" ];
+    };
 
     services.nginx.virtualHosts."${cfg.vhost}" = {
       forceSSL = true;
