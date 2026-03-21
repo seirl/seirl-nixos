@@ -51,7 +51,11 @@ in
 
     services.xserver.enable = true;
 
-    services.displayManager.sddm.enable = true;
+    services.displayManager.sddm = {
+      enable = true;
+      autoNumlock = true;
+    };
+
     services.xserver.windowManager.i3.enable = true;
     programs.i3lock.enable = true;
 
