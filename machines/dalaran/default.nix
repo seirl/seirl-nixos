@@ -40,6 +40,10 @@ in
     HandlePowerKeyLongPress = "poweroff";
   };
 
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
   services.minecraft-server = {
     enable = true;
     eula = true;
