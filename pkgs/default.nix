@@ -13,4 +13,5 @@ rec {
     };
     tsm = pkgs.callPackage ./instawow/plugins/tsm.nix { inherit instawow; };
   };
+  sunshine-enter-pin = pkgs.callPackage ./sunshine-enter-pin { };
 }

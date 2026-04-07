@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+set -e
+
+config_home=${XDG_CONFIG_HOME:-~/.config}
+sunshine_config="${SUNSHINE_CONFIG:-$config_home/sunshine}"
+state_file="$sunshine_config/sunshine_state.json"
+
+user=""
+if [ -f "$state_file" ]; then
+  user=$(jq -r '.username // empty' "$state_file" 2>/dev/null || true)
+fi
+if [ -z "$user" ]; then
+  echo -n "Enter Sunshine username: "
+  read -r user
+fi
+
+echo -n "Enter Sunshine password (user=$user): "
+read -rs passwd
+echo
+
+echo -n "Enter the remote machine hostname: "
+read -r remote_hostname
+
+echo -n "Enter the PIN displayed on the client: "
+read -r desired_pin
+
+json_payload=$(jq -n \
+  --arg pin "$desired_pin" \
+  --arg name "$remote_hostname" \
+  '{pin: $pin, name: $name}')
+
+response=$(printf 'user = "%s:%s"\n' "$user" "$passwd" | curl -s -K - \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -k "https://localhost:47990/api/pin" \
+     -d "$json_payload")
+
+status=$(echo "$response" | jq -r '.status // false')
+error=$(echo "$response" | jq -r '.error // empty')
+
+if [ "$status" = "true" ]; then
+    echo -e "\033[1m\033[1;92m✔\033[0m Device paired successfully.\033[0m"
+else
+    if [ "$error" = "Unauthorized" ]; then
+        reason="Incorrect username or password."
+    elif [ "$error" = "stoi" ]; then
+        reason="Invalid PIN format (must be 4 digits)."
+    elif [ -n "$error" ]; then
+        reason="$error"
+    else
+        reason="Unknown error (invalid pin?): $response"
+    fi
+    echo -e "\033[1m\033[1;91m✗\033[0m Failed to pair device: $reason\033[0m"
+    exit 1
+fi

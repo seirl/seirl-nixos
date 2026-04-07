@@ -12,6 +12,7 @@ in
     environment.systemPackages = with pkgs; [
       pkgs.wineWow64Packages.staging
       winetricks
+      sunshine-enter-pin
     ];
 
     hardware.graphics.enable32Bit = true;
