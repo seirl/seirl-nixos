@@ -50,7 +50,7 @@ in
         ExecStart = "${pkgs.tmux}/bin/tmux -2 new-session -d -s irc ${pkgs.weechat}/bin/weechat --upgrade \\; set status off";
         ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t irc";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "default.target" ];
       wants = [ "network.target" ];
     };
 
