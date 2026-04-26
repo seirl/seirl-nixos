@@ -12,6 +12,7 @@ in
     my.home.i3.enable = true;
     my.home.gnome.enable = true;
     my.home.alacritty.enable = true;
+    my.home.wezterm.enable = true;
     my.home.urxvt.enable = true;
     my.home.xcompose.enable = true;
     my.home.vscode.enable = true;
@@ -22,7 +23,7 @@ in
     services.autorandr.enable = lib.mkDefault true;
 
     home.sessionVariables = {
-      TERMINAL = "alacritty";
+      TERMINAL = "wezterm";
     };
   };
 }
