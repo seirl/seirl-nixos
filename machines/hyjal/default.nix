@@ -61,6 +61,17 @@ in
     };
   };
 
+  services.dawarich = {
+    enable = true;
+    configureNginx = true;
+    webPort = 3029;
+    localDomain = "timeline.koin.fr";
+  };
+  services.nginx.virtualHosts."${config.services.dawarich.localDomain}" = {
+    forceSSL = true;
+    enableACME = true;
+  };
+
   deployment.targetHost = "hyjal.koin.fr";
 
   boot.loader.grub.enable = true;
