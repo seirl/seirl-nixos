@@ -25,6 +25,7 @@ in
 
     plugins = [{
       plugin = pkgs.vimPlugins.ale;
+      type = "viml";
       config = ''
         let g:ale_fixers = {${concatStringsSep ", " (mapAttrsToList mapListForLang aleFixers)}}
         let g:ale_linters = {${concatStringsSep ", " (mapAttrsToList mapListForLang aleLinters)}}
