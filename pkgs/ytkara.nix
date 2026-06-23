@@ -10,12 +10,12 @@
 
 buildNpmPackage {
   pname = "yt-kara";
-  version = "0-unstable-2026-06-24-929fae5bc684db0d011987daf301d3e4b8c978ee";
+  version = "0-unstable-2026-06-23";
 
   src = fetchFromGitHub {
     owner = "Zeletochoy";
     repo = "yt-kara";
-    rev = "929fae5bc684db0d011987daf301d3e4b8c978ee";
+    rev = "c842dd4adbe00ff3209a3c2e2d388dd59cdb5644";
     sha256 = "sha256-8jsEuFXCrHYQwN6iryGxlFiBNwnl6laCaDqjtrXC6H8=";
   };
 
