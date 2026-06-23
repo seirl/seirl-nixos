@@ -10,16 +10,16 @@
 
 buildNpmPackage {
   pname = "yt-kara";
-  version = "0-unstable-2026-06-24";
+  version = "0-unstable-2026-06-24-929fae5bc684db0d011987daf301d3e4b8c978ee";
 
   src = fetchFromGitHub {
-    owner = "seirl";
+    owner = "Zeletochoy";
     repo = "yt-kara";
-    rev = "c45a08280551c2015ad100d505689e14d2ef3008";
-    sha256 = "sha256-SG5eGdbwRP52CMI96zB8eM5V7yM7gsnDfhae/5PHKvg=";
+    rev = "929fae5bc684db0d011987daf301d3e4b8c978ee";
+    sha256 = "sha256-8jsEuFXCrHYQwN6iryGxlFiBNwnl6laCaDqjtrXC6H8=";
   };
 
-  npmDepsHash = "sha256-o9uLuNGg4yKBaVEINtUZJEa4VVak2KJeHvCsu8TiRq0=";
+  npmDepsHash = "sha256-D9ZCfep6mJgmsNnECf1mWNMBKIsMxYeAEgkG90lP2e0=";
 
   # Skip Puppeteer's automatic Chrome download during npm install.
   # The Nix sandbox has no network access, so this download would fail.
