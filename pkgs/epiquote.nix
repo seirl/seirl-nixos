@@ -8,12 +8,12 @@
 }:
 
 let
-  version = "0-unstable-2026-02-26";
+  version = "0-unstable-2026-07-13";
   src = fetchFromGitHub {
     owner = "seirl";
     repo = "epiquote";
-    rev = "3a66d3bad46eb991acd4431236a9c3ef6a5e9d2d";
-    sha256 = "sha256-1SLiVv7OwX01EAUa54OxAAmlnshvQ3fKEJ0eiRHk2LI=";
+    rev = "1ac54dc325059677a43d5b838dfaafe4e3597815";
+    sha256 = "sha256-7E2F9TKNfMlp9zeW92wyt2e0RCie51UmYwlSNaVjSns=";
   };
 
   workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = src; };
