@@ -47,6 +47,7 @@ in
           vscodevim.vim
         ];
       })
+      antigravity-ide
     ];
 
     services.xserver.enable = true;
