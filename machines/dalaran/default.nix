@@ -44,6 +44,16 @@ in
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  # Printing
+  services.printing.enable = true;
+
+  # Uncomment for sunshine autologin when roaming, should figure out something
+  # better at some point.
+  # services.displayManager.autoLogin = {
+  #   enable = true;
+  #   user = "seirl";
+  # };
+
   services.minecraft-server = {
     enable = true;
     eula = true;
