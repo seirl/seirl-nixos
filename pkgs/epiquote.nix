@@ -76,6 +76,8 @@ let
     doCheck = true;
     checkPhase = ''
       python manage.py test -v 1
+      python manage.py check
+      python -c "import psycopg; import psycopg_c"  # Check prod PG drivers
     '';
     installPhase = "mkdir -p $out";
   };
