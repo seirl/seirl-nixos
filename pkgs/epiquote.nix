@@ -8,21 +8,24 @@
 }:
 
 let
-  version = "0-unstable-2026-07-13";
+  version = "0-unstable-2026-09-08";
   src = fetchFromGitHub {
     owner = "seirl";
     repo = "epiquote";
-    rev = "1ac54dc325059677a43d5b838dfaafe4e3597815";
-    sha256 = "sha256-7E2F9TKNfMlp9zeW92wyt2e0RCie51UmYwlSNaVjSns=";
+    rev = "b960796ffbf2945dcda46b3cef04ca6ae0b7a122";
+    sha256 = "sha256-XSEmCZzNkmn0HeF8puzLAOYHPDJqMhSJc1RYDymI7Jc=";
   };
 
   workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = src; };
   overlay = workspace.mkPyprojectOverlay { sourcePreference = "wheel"; };
 
   pyprojectOverrides = final: prev: {
-    psycopg2-binary = prev.psycopg2-binary.overrideAttrs (old: {
+    psycopg-c = prev.psycopg-c.overrideAttrs (old: {
       nativeBuildInputs =
-        (old.nativeBuildInputs or [ ]) ++ [ pkgs.postgresql.pg_config ];
+        (old.nativeBuildInputs or [ ]) ++ [
+          final.setuptools
+          pkgs.postgresql.pg_config
+        ];
     });
     django-bootstrap-form = prev.django-bootstrap-form.overrideAttrs (old: {
       buildInputs = (old.buildInputs or [ ]) ++ [ final.setuptools ];
