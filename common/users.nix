@@ -11,8 +11,9 @@ rec {
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILiua8eEg+nU0XSbYPTgnOMftzvpbN+u7v5jDabeO/0E seirl"
-      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBI/JwDTVgDieMCQz8Pe9GejJDed5hJnGuPo5Yer9kooLNS6qJSvYVKNxAK3n2P5Ftr5dfMSlZD56dVM37nI8q2o= seirl@google-small-usbc"
-      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMSFbO4Wxz5Yie7rjfziXOSaY7vodWAvpfw9SlgCbZcwfKPTjEpjd/FRMJEAAjv27DumofczSHURcQRrd6SBTl4= seirl@google-keyring-usbc"
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBI/JwDTVgDieMCQz8Pe9GejJDed5hJnGuPo5Yer9kooLNS6qJSvYVKNxAK3n2P5Ftr5dfMSlZD56dVM37nI8q2o= seirl@google-laptopkey"
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBUV8ySLA74EH6N8gcA+6wdPORmaDvNQ+43e/0ExMUoQJs8c9kkLdK/USFJ51VA5tnRtDOUusZbnY9hojnz2Kaw= seirl@google-workstationkey"
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBO7uX6WXQfEeCt8tarsbI4KO/rUlkt1dtJa4pkvoAbM8SpCuzOklbRLydGmhsKuQYrOv5vIXJyQmiEfvuOQt57s= seirl@google-portablekey"
     ];
   };
 
