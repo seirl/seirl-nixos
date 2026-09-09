@@ -1,8 +1,5 @@
 { pkgs, config, ... }:
 
-let
-  my = import ./..;
-in
 rec {
   users.users.seirl = {
     isNormalUser = true;
@@ -35,7 +32,7 @@ rec {
 
   home-manager.users.seirl = {
     imports = [
-      my.home
+      ../home
     ];
 
     config = {
