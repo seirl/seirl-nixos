@@ -57,12 +57,15 @@
             inputs.home-manager.nixosModules.home-manager
             inputs.sops-nix.nixosModules.sops
             inputs.nur.modules.nixos.default
+            ./common
+            ./roles
           ];
           nixpkgs.overlays = [
             (final: prev: self.packages.x86_64-linux)
           ];
           home-manager.sharedModules = [
             inputs.sops-nix.homeManagerModules.sops
+            ./home-modules
             {
               config = {
                 news.display = "silent";
@@ -87,46 +90,27 @@
       (nixpkgs.lib.attrsets.filterAttrs (n: v: v ? config.system.build.sdImage)
         nixosConfigurations);
 
-    homeConfigurations = rec {
-      seirlcorp = inputs.home-manager.lib.homeManagerConfiguration rec {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [
-          {
-            imports = [ ./home inputs.sops-nix.homeManagerModules.sops ];
-            config = {
-              my.home.graphical.enable = true;
-              my.home.laptop.enable = true;
-              my.home.glinux.enable = true;
-              home.stateVersion = "25.05";
-              services.autorandr.enable = false;
+    homeConfigurations =
+      let
+        mkHome = profile: inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            inputs.sops-nix.homeManagerModules.sops
+            ./home-modules
+            profile
+          ];
+        };
+      in
+      rec {
+        seirlcorp = mkHome ./home-profiles/corplaptop.nix;
+        "seirl@seirl.roam.corp.google.com" = seirlcorp;
 
-              targets.genericLinux.enable = true;
-              nixpkgs.config.allowUnfree = true;
-            };
-          }
-        ];
+        seirlworkstation = mkHome ./home-profiles/corpworkstation.nix;
+        "seirl@seirl02.zrh.corp.google.com" = seirlworkstation;
+
+        seirlcloudtop = mkHome ./home-profiles/corpcloudtop.nix;
+        "seirl@seirl.c.googlers.com" = seirlcloudtop;
       };
-      "seirl@seirl.roam.corp.google.com" = seirlcorp;
-
-      seirlcloudtop = inputs.home-manager.lib.homeManagerConfiguration rec {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [
-          {
-            imports = [ ./home inputs.sops-nix.homeManagerModules.sops ];
-            config = {
-              home.homeDirectory = inputs.nixpkgs.lib.mkForce "/usr/local/google/home/seirl";
-              my.home.glinux.enable = true;
-              home.stateVersion = "25.05";
-
-              targets.genericLinux.enable = true;
-              nixpkgs.config.allowUnfree = true;
-              programs.mercurial.enable = inputs.nixpkgs.lib.mkForce false;
-            };
-          }
-        ];
-      };
-      "seirl@seirl.c.googlers.com" = seirlcloudtop;
-    };
 
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     devShell.x86_64-linux =

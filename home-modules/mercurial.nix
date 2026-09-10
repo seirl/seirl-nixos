@@ -1,8 +1,8 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
   config.programs.mercurial = {
-    enable = true;
+    enable = lib.mkDefault true;
     userName = "Antoine Pietri";
     userEmail = "antoine.pietri1@gmail.com";
     extraConfig = {

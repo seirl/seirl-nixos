@@ -1,11 +1,7 @@
 { name, config, pkgs, ... }:
 
-let
-  my = import ../..;
-in
 {
   imports = [
-    my.modules
     ./hardware.nix
     ./network.nix
     ./printer.nix
