@@ -59,8 +59,6 @@
     enableACME = true;
   };
 
-  deployment.targetHost = "hyjal.koin.fr";
-
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/vda";
 

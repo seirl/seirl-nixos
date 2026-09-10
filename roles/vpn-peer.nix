@@ -1,46 +1,19 @@
-{ config, lib, pkgs, name, ... }:
+{ config, lib, pkgs, name, fleet, ... }:
 
 let
   cfg = config.my.roles.vpn-peer;
 
   machineName = name;
-  port = 51820;
-  allPeers = {
-    hyjal = {
-      clientNum = 1;
-      externalIp = "95.216.87.10";
-      publicKey = "BmectuKYQgE0CHyfU8OlKyxfwXSds6JustGUEJCnYUs=";
-      sopsFile = ../secrets/machines/hyjal/wireguard.yaml;
-    };
-    dalaran = {
-      clientNum = 2;
-      publicKey = "DTAFYlb1QnIbEl22j3PiA2JBnwLunqiyR9jJ4R3Bmzw=";
-      sopsFile = ../secrets/machines/dalaran/wireguard.yaml;
-    };
-    redridge = {
-      clientNum = 3;
-      publicKey = "WjYll9aqjlQGc9x1Pqs0ieLjBA6fc4+jWDQIzo3qdzE=";
-      sopsFile = ../secrets/machines/redridge/wireguard.yaml;
-    };
-    corplaptop = {
-      clientNum = 4;
-      publicKey = "ZdOiH8yr7BgxNumDplU6/Yn+uqQzSnSolAfqn/NG1mo=";
-      sopsFile = ../secrets/machines/redridge/wireguard.yaml;
-    };
-  };
-  wgcfg = {
-    domain = "seirl.local";
-    subnet4 = "10.100.0";
-    subnet6 = "fdd2:cdae:f4b4:ad0d";
-    mask4 = 24;
-    mask6 = 64;
-  };
-  server = "hyjal";
+  wgNet = fleet.network.wireguard;
+  server = wgNet.server;
+  port = wgNet.port;
 
-  peerIpv4 = clientNum: "${wgcfg.subnet4}.${toString clientNum}";
-  peerIpv6 = clientNum: "${wgcfg.subnet6}::${toString clientNum}";
-  peerIpv4WithMask = clientNum: mask: "${peerIpv4 clientNum}/${toString mask}";
-  peerIpv6WithMask = clientNum: mask: "${peerIpv6 clientNum}/${toString mask}";
+  allPeers = lib.filterAttrs (_: h: h ? wireguard) fleet.hosts;
+
+  peerIpv4 = id: "${wgNet.subnet4}.${toString id}";
+  peerIpv6 = id: "${wgNet.subnet6}::${toString id}";
+  peerIpv4WithMask = id: mask: "${peerIpv4 id}/${toString mask}";
+  peerIpv6WithMask = id: mask: "${peerIpv6 id}/${toString mask}";
 
   thisPeer = allPeers."${machineName}" or null;
   otherPeers = lib.filterAttrs (n: v: n != machineName) allPeers;
@@ -48,7 +21,7 @@ let
   # IPs (so that they route through the server otherwise).
   relevantPeers = lib.filterAttrs
     (n: v:
-      (machineName == server) || (v ? externalIp))
+      (machineName == server) || (v.wireguard ? externalIp))
     otherPeers;
 in
 {
@@ -58,20 +31,20 @@ in
 
   config = lib.mkIf cfg.enable {
     sops.secrets."wireguard/private_key" = {
-      sopsFile = thisPeer.sopsFile;
+      sopsFile = ../secrets/machines + "/${machineName}/wireguard.yaml";
     };
     networking.firewall = {
-      allowedUDPPorts = [ 51820 ];
+      allowedUDPPorts = [ port ];
       checkReversePath = false;
     };
 
     networking.wireguard.interfaces = {
       wgseirl = {
-        listenPort = 51820;
+        listenPort = port;
         privateKeyFile = config.sops.secrets."wireguard/private_key".path;
         ips = [
-          (peerIpv4WithMask thisPeer.clientNum 32)
-          (peerIpv6WithMask thisPeer.clientNum 128)
+          (peerIpv4WithMask thisPeer.wireguard.id 32)
+          (peerIpv6WithMask thisPeer.wireguard.id 128)
         ];
         peers = lib.mapAttrsToList
           (
@@ -79,18 +52,18 @@ in
               {
                 name = peerName;
                 allowedIPs = (if peerName == server then [
-                  "${wgcfg.subnet4}.0/24"
-                  "${wgcfg.subnet6}::0/64"
+                  "${wgNet.subnet4}.0/${toString wgNet.mask4}"
+                  "${wgNet.subnet6}::0/${toString wgNet.mask6}"
                 ] else [
-                  (peerIpv4WithMask peer.clientNum 32)
-                  (peerIpv6WithMask peer.clientNum 128)
+                  (peerIpv4WithMask peer.wireguard.id 32)
+                  (peerIpv6WithMask peer.wireguard.id 128)
                 ]);
-                publicKey = peer.publicKey;
+                publicKey = peer.wireguard.publicKey;
               }
-              // lib.optionalAttrs (peer ? externalIp) {
-                endpoint = "${peer.externalIp}:${toString port}";
+              // lib.optionalAttrs (peer.wireguard ? externalIp) {
+                endpoint = "${peer.wireguard.externalIp}:${toString port}";
               }
-              // lib.optionalAttrs (!(thisPeer ? externalIp)) {
+              // lib.optionalAttrs (!(thisPeer.wireguard ? externalIp)) {
                 persistentKeepalive = 10;
               }
           )
@@ -101,8 +74,8 @@ in
     networking.extraHosts = lib.strings.concatLines
       (lib.mapAttrsToList
         (peerName: peer: (lib.strings.concatLines [
-          "${peerIpv4 peer.clientNum} ${peerName}.${wgcfg.domain} ${peerName}"
-          "${peerIpv6 peer.clientNum} ${peerName}.${wgcfg.domain} ${peerName}"
+          "${peerIpv4 peer.wireguard.id} ${peerName}.${fleet.network.domain} ${peerName}"
+          "${peerIpv6 peer.wireguard.id} ${peerName}.${fleet.network.domain} ${peerName}"
         ]))
         allPeers);
   };
