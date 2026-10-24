@@ -35,14 +35,14 @@ in
       virt-manager
 
       aegisub
-      audacity
+      # broken https://github.com/NixOS/nixpkgs/issues/578298
+      # audacity
       gimp-with-plugins
 
       (vscode-with-extensions.override {
         vscodeExtensions = with vscode-extensions; [
           bbenoist.nix
-          # broken https://github.com/NixOS/nixpkgs/issues/263493
-          # ms-python.python
+          ms-python.python
           rust-lang.rust-analyzer
           vscodevim.vim
         ];
