@@ -13,7 +13,6 @@ in
     environment.systemPackages = lib.mkMerge [
       (lib.mkIf cfg.enableCuda [ pkgs.nvtopPackages.nvidia ])
     ];
-    nixpkgs.config.cudaSupport = cfg.enableCuda;
     services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware.nvidia = {
@@ -23,6 +22,11 @@ in
       powerManagement.enable = true;
       powerManagement.finegrained = false;
       nvidiaSettings = true;
+    };
+
+    nix.settings = lib.mkIf cfg.enableCuda {
+      substituters = [ "https://cache.nixos-cuda.org" ];
+      trusted-public-keys = [ "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=" ];
     };
   };
 }
