@@ -1,6 +1,6 @@
 { lib, python3, fetchFromGitHub, plugins ? [ ] }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "instawow";
   version = "7.3.0";
   pyproject = true;
@@ -8,16 +8,31 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "layday";
     repo = "instawow";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "sha256-NJDx1eUj+0Vq61lmR0y8R+H6sV8ajUFIpBrWzw2vATA=";
   };
 
   extras = [ ];  # Disable GUI, most dependencies are not packaged.
 
+  postPatch = ''
+    cat >> pyproject.toml <<EOF
+
+    [tool.versioningit]
+    default-version = "${finalAttrs.version}"
+    EOF
+  '';
+
+  # The versions available in nixpkgs don't match the ones requested exactly.
+  pythonRelaxDeps = [
+    "aiohttp"
+    "rapidfuzz"
+  ];
+
   nativeBuildInputs = with python3.pkgs; [
     hatchling
-    hatch-vcs
+    versioningit
   ];
+
   propagatedBuildInputs = with python3.pkgs; [
     aiohttp
     # Fix for broken aiohttp-client-cache. PR #441704
@@ -28,7 +43,6 @@ python3.pkgs.buildPythonApplication rec {
     cattrs
     click
     diskcache
-    iso8601
     loguru
     packaging
     pluggy
@@ -36,6 +50,7 @@ python3.pkgs.buildPythonApplication rec {
     rapidfuzz
     truststore
     typing-extensions
+    wcwidth
     yarl
   ] ++ plugins;
 
@@ -46,4 +61,4 @@ python3.pkgs.buildPythonApplication rec {
     license = licenses.gpl3;
     maintainers = with maintainers; [ seirl ];
   };
-}
+})
