@@ -38,7 +38,10 @@ in
       openFirewall = true;
     };
     services.avahi.enable = true;
-    services.avahi.publish.userServices = true;
+    services.avahi.settings.publish = {
+      disable-user-service-publishing = false;
+      publish-addresses = true;
+    };
 
     # Steam games SSL fix.
     #

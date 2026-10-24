@@ -90,7 +90,8 @@
         };
       } // machines;
 
-    nixosConfigurations = (inputs.colmena.lib.makeHive self.colmena).nodes;
+    colmenaHive = inputs.colmena.lib.makeHive self.colmena;
+    nixosConfigurations = self.colmenaHive.nodes;
 
     images = builtins.mapAttrs
       (name: value: value.config.system.build.sdImage)
