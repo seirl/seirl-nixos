@@ -10,13 +10,13 @@
 
 buildNpmPackage {
   pname = "yt-kara";
-  version = "0-unstable-2026-09-08";
+  version = "0-unstable-2026-10-24";
 
   src = fetchFromGitHub {
     owner = "Zeletochoy";
     repo = "yt-kara";
-    rev = "8ec4172d2d70c4a34b1b8f8532a1d9cd0231b9b0";
-    sha256 = "sha256-D2EOV35onhAZLmLJrtTIr8QCyePxDlREdQEDApAi/JA=";
+    rev = "49da2bc31b974fa4c33b22787b148bfbb1b6bba5";
+    sha256 = "sha256-PyxJrdAXmhqdU5WEBVhBS72xPf7xq7AL9qDjfQ7lEiw=";
   };
 
   npmDepsHash = "sha256-F2EVGjOrQWdx/wHqDjrr4roMoCzZlK4P2rfCYq/HpwI=";
