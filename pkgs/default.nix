@@ -13,6 +13,9 @@ rec {
     };
     tsm = pkgs.callPackage ./instawow/plugins/tsm.nix { inherit instawow; };
   };
+  opensteuerauszug = pkgs.callPackage ./opensteuerauszug.nix {
+    inherit uv2nix pyproject-nix pyproject-build-systems;
+  };
   sunshine-enter-pin = pkgs.callPackage ./sunshine-enter-pin { };
   ytkara = pkgs.callPackage ./ytkara.nix { };
 }
