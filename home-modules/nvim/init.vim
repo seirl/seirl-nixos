@@ -16,7 +16,6 @@ set laststatus=2 "always display the status line
 set wildmenu
 set wildmode=longest,list
 set colorcolumn=+1
-set t_Co=256
 
 set list
 set listchars=tab:→\ ,nbsp:¤

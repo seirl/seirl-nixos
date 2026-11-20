@@ -15,6 +15,13 @@
     pkgs.vimPlugins.rust-vim
     pkgs.vimPlugins.vim-surround
     pkgs.vimPlugins.vim-jinja-languages
-    pkgs.vimPlugins.vim-molokai-delroth
+    (pkgs.vimPlugins.vim-molokai-delroth.overrideAttrs {
+      src = pkgs.fetchFromGitHub {
+        owner = "seirl";
+        repo = "vim-molokai-delroth";
+        rev = "41bac1c5a0cbc24f8e48eb6d63d63394ec0c89b3";
+        hash = "sha256-T293HAfXCtV94owf9UottzCZUun0KACKwXe5C8eyr+o=";
+      };
+    })
   ];
 }
